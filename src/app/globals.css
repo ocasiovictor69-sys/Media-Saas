@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-purple: #4F46E5;
+  --color-brand-accent: #8B5CF6;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --brand-purple: #4F46E5;
+  --brand-accent: #8B5CF6;
+  --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 100%);
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black min-h-screen selection:bg-brand-purple/10;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-200;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 rounded-full bg-brand-purple text-white font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg;
+    background-image: var(--accent-gradient);
+  }
+}
