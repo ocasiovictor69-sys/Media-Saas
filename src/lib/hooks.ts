@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { createClient } from './supabase/client';
 
 export interface User {
@@ -10,56 +10,54 @@ export interface User {
   created_at: string;
 }
 
-// useAuth - Supabase authentication
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-        
-        if (profile) {
-          setUser({
-            id: profile.id,
-            email: profile.email,
-            name: profile.full_name,
-            created_at: profile.created_at,
-          });
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+          if (profile) {
+            setUser({
+              id: profile.id,
+              email: profile.email,
+              name: profile.full_name,
+              created_at: profile.created_at,
+            });
+          }
         }
+      } catch (err) {
+        console.error('[FloMedia] Session check failed:', err);
       }
     };
-    
     checkSession();
-  }, []);
+  }, [supabase]);
 
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      
       if (data.user) {
         const { data: profile } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', data.user.id)
           .single();
-        
         const userData = {
           id: profile.id,
           email: profile.email,
           name: profile.full_name,
           created_at: profile.created_at,
         };
-        
         setUser(userData);
         return { user: userData };
       }
@@ -69,7 +67,7 @@ export function useAuth() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   const signup = useCallback(async (email: string, password: string, name: string) => {
     setLoading(true);
@@ -79,7 +77,6 @@ export function useAuth() {
         password,
         options: { data: { full_name: name } },
       });
-      
       if (error) throw error;
       return { user: data.user };
     } catch (error) {
@@ -88,17 +85,16 @@ export function useAuth() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   const logout = useCallback(async () => {
     await supabase.auth.signOut();
     setUser(null);
-  }, []);
+  }, [supabase]);
 
   return { user, loading, login, signup, logout };
 }
 
-// useUser - Get current user
 export function useUser() {
   const { user } = useAuth();
   return { user };

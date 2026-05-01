@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /$
+Disallow: /dashboard
+Disallow: /productions
+Disallow: /settings
+Disallow: /actions
+
+Sitemap: https://flowmedia.tomorrownowai.com/sitemap.xml

@@ -1,36 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-@theme inline {
-  --color-brand-purple: #4F46E5;
-  --color-brand-accent: #8B5CF6;
-  --color-background: #ffffff;
-  --color-foreground: #000000;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --brand-purple: #4F46E5;
-  --brand-accent: #8B5CF6;
-  --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 100%);
+@theme {
+  --font-sans: "Outfit", sans-serif;
+  --color-brand-primary: #4F46E5;
+  --color-brand-primary-light: #818cf8;
+  --color-brand-secondary: #0ea5e9;
+  --color-brand-accent: #f43f5e;
 }
 
 @layer base {
   body {
-    @apply bg-white text-black min-h-screen selection:bg-brand-purple/10;
-    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-@layer components {
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  
   .glass-card {
-    @apply bg-white border border-slate-100 rounded-2xl p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-200;
+    @apply bg-white/60 backdrop-blur-lg border border-slate-200/60 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:bg-white/80;
   }
 
-  .btn-primary {
-    @apply px-8 py-4 rounded-full bg-brand-purple text-white font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg;
-    background-image: var(--accent-gradient);
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-sky-500;
   }
+
+  .premium-button {
+    @apply relative overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md transition-all duration-300 hover:shadow-lg hover:from-indigo-500 hover:to-indigo-400 active:scale-95;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

@@ -3,70 +3,40 @@
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function createProduction(formData: FormData) {
-  const supabase = await createClient();
-  
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('Not authenticated');
-  
-  const production = {
-    user_id: user.id,
-    title: formData.get('title') as string,
-    description: formData.get('description') as string,
-    script: formData.get('script') as string,
-    status: 'scripting',
-    platforms: formData.getAll('platforms') as string[],
-  };
-  
-  const { data, error } = await supabase.from('productions').insert(production).select().single();
-  if (error) throw error;
-  
-  revalidatePath('/dashboard/productions');
-  return data;
-}
-
-export async function updateProduction(id: string, updates: Partial<{
+export async function createProduction(data: {
   title: string;
-  description: string;
-  script: string;
-  status: 'scripting' | 'rendering' | 'processing' | 'ready' | 'posted';
-  heygen_job_id: string;
-  output_url: string;
   platforms: string[];
-  scheduled_at: string;
-}>) {
+}) {
   const supabase = await createClient();
-  
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('Not authenticated');
-  
-  const { data, error } = await supabase
-    .from('productions')
-    .update(updates)
-    .eq('id', id)
-    .eq('user_id', user.id)
-    .select()
-    .single();
-    
-  if (error) throw error;
-  
+  if (!user) return { error: 'Not authenticated' };
+
+  const { error } = await supabase.from('productions').insert({
+    user_id: user.id,
+    title: data.title,
+    platforms: data.platforms,
+    status: 'draft',
+  });
+
+  if (error) return { error: error.message };
   revalidatePath('/dashboard/productions');
-  return data;
+  revalidatePath('/dashboard');
+  return { success: true };
 }
 
-export async function deleteProduction(id: string) {
+export async function updateProductionStatus(productionId: string, status: string) {
   const supabase = await createClient();
-  
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('Not authenticated');
-  
-  const { error } = await supabase
-    .from('productions')
-    .delete()
-    .eq('id', id)
-    .eq('user_id', user.id);
-    
-  if (error) throw error;
+  if (!user) return { error: 'Not authenticated' };
+
+  // Verify ownership
+  const { data: prod } = await supabase.from('productions').select('user_id').eq('id', productionId).single();
+  if (!prod || prod.user_id !== user.id) return { error: 'Access denied' };
+
+  const { error } = await supabase.from('productions').update({ status }).eq('id', productionId);
+  if (error) return { error: error.message };
   
   revalidatePath('/dashboard/productions');
+  revalidatePath('/dashboard');
+  return { success: true };
 }
