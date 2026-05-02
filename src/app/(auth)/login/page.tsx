@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-black mb-2">Sign in to Flo-Media</h1>
+          <h1 className="text-2xl font-bold text-black mb-2">Sign in to Flow-Media</h1>
           <p className="text-slate-600">Media Pipeline access</p>
         </div>
 

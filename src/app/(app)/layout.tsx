@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('[FloMedia ErrorBoundary]', error, info);
+    console.error('[FlowMedia ErrorBoundary]', error, info);
   }
 
   render() {
@@ -46,7 +46,7 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-export default function FloMediaLayout({ children }: { children: React.ReactNode }) {
+export default function FlowMediaLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { logout, user } = useAuth();
 
@@ -70,7 +70,7 @@ export default function FloMediaLayout({ children }: { children: React.ReactNode
             <div className="w-8 h-8 rounded-lg bg-brand-purple flex items-center justify-center text-white font-bold text-sm">
               Fl
             </div>
-            <span className="text-xl font-bold text-zinc-900 tracking-tight">FLO-MEDIA</span>
+            <span className="text-xl font-bold text-zinc-900 tracking-tight">FLOW-MEDIA</span>
           </Link>
 
           <nav className="flex flex-col gap-1">
@@ -102,7 +102,7 @@ export default function FloMediaLayout({ children }: { children: React.ReactNode
             </div>
             <div className="min-w-0">
               <p className="text-xs font-bold text-zinc-900 truncate">{user?.name || 'Administrator'}</p>
-              <p className="text-[10px] text-zinc-400 truncate">{user?.email || 'admin@flomedia.ai'}</p>
+              <p className="text-[10px] text-zinc-400 truncate">{user?.email || 'admin@flowmedia.ai'}</p>
             </div>
           </div>
           <button
