@@ -13,8 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FLO_MEDIA | The Visibility Engine",
-  description: "FLO_MEDIA automates media production and distribution with AI avatars, programmatic motion graphics, and professional videography. Scale your brand visibility without linear headcount.",
+  title: "Flow-Media - Media Pipeline | TomorrowNow AI",
+  description: "Flow-Media: AI-driven media visibility and automated content pipelines. HeyGen-powered video production and Remotion Core.",
+  keywords: ["media", "video production", "content pipeline", "AI media", "automated distribution"],
+  authors: [{ name: "TomorrowNow AI" }],
+  openGraph: {
+    title: "Flow-Media - Media Pipeline",
+    description: "AI-driven media visibility and automated content pipelines.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
