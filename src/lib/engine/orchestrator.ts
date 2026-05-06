@@ -1,6 +1,5 @@
-import { createClient } from '@supabase/supabase-js'
+import { SupabaseClient, createClient } from '@supabase/supabase-js'
 import { eventBus, MEDIA_EVENTS } from './event-bus'
-import { execute as modD01 } from './modules/modd01-pre-production'
 import { execute as modD02 } from './modules/pipeline' // This is the multi-task generator
 import { execute as modD03 } from './modules/modd03-distribution'
 import { execute as modD04 } from './modules/modd04-engagement'
@@ -18,7 +17,7 @@ import { MediaServices, Campaign } from '../types'
  */
 
 export class FlowMediaOrchestrator {
-  private db: any
+  private db: SupabaseClient
   private services: MediaServices
 
   constructor(services: MediaServices) {

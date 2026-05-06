@@ -106,11 +106,11 @@ async function postViaZapier(params: {
 
 // ── Platform routing ──────────────────────────────────────────────────────────
 
-const BUFFER_PLATFORM_MAP: Partial<Record<Platform, string>> = {
+const getBufferPlatformMap = (): Partial<Record<Platform, string>> => ({
   instagram: process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '',
   facebook:  process.env.BUFFER_FACEBOOK_CHANNEL_ID  || '',
   linkedin:  process.env.BUFFER_LINKEDIN_CHANNEL_ID  || '',
-}
+})
 
 const ZAPIER_PLATFORMS: Platform[] = ['tiktok', 'youtube_shorts']
 
@@ -118,7 +118,7 @@ const ZAPIER_PLATFORMS: Platform[] = ['tiktok', 'youtube_shorts']
 
 export async function execute(
   inputs:   DistributionInputs,
-  db:       any,
+  db:       SupabaseClient,
   services: MediaServices,
 ): Promise<DistributionResult> {
   const {
@@ -148,7 +148,7 @@ export async function execute(
       if (ZAPIER_PLATFORMS.includes(platform)) {
         result = await postViaZapier({ platform, contentUrl: content_url, caption: fullCaption, campaignId: campaign_id })
       } else {
-        const channelId = BUFFER_PLATFORM_MAP[platform]
+        const channelId = getBufferPlatformMap()[platform]
         if (!channelId) {
           result = { ok: false, error: `CHANNEL_NOT_CONFIGURED: ${platform}` }
         } else {

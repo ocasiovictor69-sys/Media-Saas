@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { SocialComment } from '../types'
+
 
 /**
  * Flow-Media Event Bus
