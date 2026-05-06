@@ -163,7 +163,7 @@ export async function execute(
         .single()
 
       // Route to generator
-      const result = await mediaRouter(task, teamId, campaignId)
+      const result = await routerExecute(task, teamId, campaignId)
 
       // Link job to asset
       if (result.ok && result.jobId && asset) {
