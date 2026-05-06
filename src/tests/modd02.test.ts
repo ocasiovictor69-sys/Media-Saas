@@ -1,4 +1,4 @@
-import { execute, PostProductionInputs } from '../modules/modd02-post-production/index';
+import { execute, PostProductionInputs } from '../lib/engine/modules/modd02-post-production/index';
 
 describe('MOD-D02: Post-Production', () => {
   test('SUCCESS: Renders video and updates memory context', async () => {

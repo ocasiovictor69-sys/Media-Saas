@@ -1,4 +1,4 @@
-import { execute, DistributionInputs } from '../modules/modd03-distribution/index';
+import { execute, DistributionInputs } from '../lib/engine/modules/modd03-distribution/index';
 
 describe('MOD-D03: Distribution', () => {
   test('SUCCESS: Distributes content and updates graph memory', async () => {

@@ -1,4 +1,4 @@
-import { execute, PreProductionInputs } from '../modules/modd01-pre-production/index';
+import { execute, PreProductionInputs } from '../lib/engine/modules/modd01-pre-production/index';
 
 describe('MOD-D01: Pre-Production', () => {
   test('SUCCESS: Generates video manifest and updates working memory', async () => {

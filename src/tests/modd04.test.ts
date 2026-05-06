@@ -1,4 +1,4 @@
-import { execute, EngagementInputs } from '../modules/modd04-engagement/index';
+import { execute, EngagementInputs } from '../lib/engine/modules/modd04-engagement/index';
 
 describe('MOD-D04: Engagement & Loop', () => {
   test('SUCCESS: Processes comments and updates engagement history', async () => {
