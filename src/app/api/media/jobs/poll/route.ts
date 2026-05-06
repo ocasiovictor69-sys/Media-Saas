@@ -5,6 +5,7 @@ import { pollHeyGenJob } from '@/services/heygen'
 import { pollRunwayJob } from '@/services/runway'
 import { pollHiggsfieldJob } from '@/services/higgsfield'
 import { GenerationPollResult } from '@/lib/types'
+import { eventBus, MEDIA_EVENTS } from '@/lib/engine/event-bus'
 
 /**
  * POST /api/media/jobs/poll
@@ -46,6 +47,10 @@ export async function POST(req: NextRequest) {
       }
 
       await updateJob(job.id, pollResult, job.attemptCount + 1, job.maxAttempts)
+
+      if (pollResult.status === 'completed') {
+        eventBus.dispatch(MEDIA_EVENTS.GENERATION_COMPLETE, { jobId: job.id })
+      }
 
       return { jobId: job.id, status: pollResult.status }
     })

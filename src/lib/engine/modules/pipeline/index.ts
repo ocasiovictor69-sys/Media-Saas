@@ -17,7 +17,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { MediaTask, Campaign } from '@/lib/types'
-import { mediaRouter, RouterResult } from '@/modules/media-router'
+import { execute as routerExecute, RouterResult } from '../media-router'
 import { preflightCostCheck } from '@/lib/cost-guard'
 
 // ── Types ─────────────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { processRawMedia } from '@/modules/raw-media'
+import { execute as processRawMedia } from '@/lib/engine/modules/raw-media'
 
 /**
  * POST /api/media/upload

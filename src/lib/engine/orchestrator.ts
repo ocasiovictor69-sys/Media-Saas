@@ -27,6 +27,17 @@ export class FlowMediaOrchestrator {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
+    this.setupListeners()
+  }
+
+  private setupListeners() {
+    eventBus.on(MEDIA_EVENTS.GENERATION_COMPLETE, (payload) => {
+      this.onGenerationComplete(payload.jobId)
+    })
+
+    eventBus.on(MEDIA_EVENTS.DISTRIBUTION_COMPLETE, (payload) => {
+      console.log(`[Orchestrator] Content distributed: ${payload.assetId}`)
+    })
   }
 
   /**

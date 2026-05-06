@@ -69,7 +69,7 @@ function getServiceClient() {
  * @param campaignId — associated campaign
  * @param teamId    — RLS scoping
  */
-export async function processRawMedia(
+export async function execute(
   blob:       Blob,
   fileName:   string,
   mimeType:   string,

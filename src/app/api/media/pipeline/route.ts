@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { generateMediaPipeline } from '@/modules/pipeline'
+import { FlowMediaOrchestrator } from '@/lib/engine/orchestrator'
 
 /**
  * POST /api/media/pipeline
@@ -29,7 +29,15 @@ export async function POST(req: NextRequest) {
 
   if (!body.campaign_id) return NextResponse.json({ error: 'campaign_id required' }, { status: 422 })
 
-  const result = await generateMediaPipeline(body.campaign_id, profile.team_id)
+  // Initialize orchestrator with required services
+  const orchestrator = new FlowMediaOrchestrator({
+    memory: {
+      captureContext:   async (p) => ({ ok: true }),
+      mapRelationships: async (p) => ({ ok: true })
+    }
+  })
+
+  const result = await orchestrator.runCampaign(body.campaign_id, profile.team_id)
 
   return NextResponse.json(result, { status: result.success ? 200 : 422 })
 }
