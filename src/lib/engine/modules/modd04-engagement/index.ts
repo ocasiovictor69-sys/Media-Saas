@@ -11,7 +11,7 @@
  *   - [D04-3] Neo4j performance data written for MOD-D01 refinement
  */
 
-import { MediaServices, ModuleResult, SocialComment } from '../../lib/types'
+import { MediaServices, ModuleResult, SocialComment, SupabaseClient } from '@/lib/types'
 import { Anthropic } from '@anthropic-ai/sdk'
 
 export interface EngagementInputs {
@@ -121,7 +121,7 @@ async function reIngestToAgento(comment: SocialComment, campaignId: string): Pro
 
 export async function execute(
   inputs:   EngagementInputs,
-  db:       any,
+  db:       SupabaseClient,
   services: MediaServices,
 ): Promise<EngagementResult> {
   const { channel_id, lead_id, campaign_id, platform } = inputs
