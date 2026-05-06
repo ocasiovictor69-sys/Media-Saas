@@ -2,6 +2,7 @@
  * Flow-Media v2 — Shared Type Definitions
  * Extended from v1 MediaServices to support real generation layer.
  */
+export { SupabaseClient } from '@supabase/supabase-js'
 
 // ── Task Types ─────────────────────────────────────────────────────────────────
 
@@ -146,6 +147,14 @@ export interface SocialComment {
   sentiment?: 'positive' | 'neutral' | 'negative'
   intent?:   'lead' | 'question' | 'complaint' | 'praise' | 'unknown'
 }
+
+// ── Module Execution Signature ────────────────────────────────────────────────
+
+export type ModuleExecutor<T = unknown, R = ModuleResult> = (
+  inputs:   T,
+  db:       SupabaseClient,
+  services: MediaServices,
+) => Promise<R>
 
 // ── Module Result ──────────────────────────────────────────────────────────────
 

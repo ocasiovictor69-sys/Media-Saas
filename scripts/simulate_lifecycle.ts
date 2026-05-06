@@ -36,12 +36,22 @@ async function runMediaSimulation() {
 
     // 3. Distribution
     console.log('\n--- Step 3: Omnichannel Distribution (MOD-D03) ---');
-    const step3 = await modD03({ lead_id: 'l-123', content_url: step2.output_url!, platforms: ['facebook', 'instagram'] }, mockDb, mockServices);
+    const step3 = await modD03({ 
+      lead_id: 'l-123', 
+      campaign_id: 'c-456',
+      content_url: step2.output_url!, 
+      platforms: ['facebook', 'instagram'] 
+    }, mockDb, mockServices);
     console.log('Result:', step3.success ? '✅ SUCCESS' : `❌ FAIL: ${step3.error}`);
 
     // 4. Engagement & Loop
     console.log('\n--- Step 4: Engagement Monitoring (MOD-D04) ---');
-    const step4 = await modD04({ channel_id: 'ch-789', lead_id: 'l-123' }, mockDb, mockServices);
+    const step4 = await modD04({ 
+      channel_id: 'ch-789', 
+      lead_id: 'l-123',
+      campaign_id: 'c-456',
+      platform: 'facebook'
+    }, mockDb, mockServices);
     console.log('Result:', step4.success ? '✅ SUCCESS' : `❌ FAIL: ${step4.error}`);
     console.log(`   Engagement Count: ${step4.engagement_count}`);
 

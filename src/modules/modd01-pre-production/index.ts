@@ -10,7 +10,7 @@
  *   - [D01-3] Manifest includes all fields needed by MOD-D02
  */
 
-import { MediaServices, ModuleResult, OpportunityType } from '../../lib/types'
+import { MediaServices, ModuleResult, OpportunityType, SupabaseClient } from '../../lib/types'
 import { Anthropic } from '@anthropic-ai/sdk'
 
 export interface PreProductionInputs {
@@ -62,7 +62,7 @@ const BG_PROMPTS: Record<OpportunityType, string> = {
 
 export async function execute(
   inputs:   PreProductionInputs,
-  db:       any,
+  db:       SupabaseClient,
   services: MediaServices,
 ): Promise<PreProductionResult> {
   const {
