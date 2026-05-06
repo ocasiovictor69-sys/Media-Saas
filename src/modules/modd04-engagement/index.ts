@@ -12,6 +12,7 @@
  */
 
 import { MediaServices, ModuleResult, SocialComment } from '../../lib/types'
+import { Anthropic } from '@anthropic-ai/sdk'
 
 export interface EngagementInputs {
   channel_id:  string
@@ -33,8 +34,7 @@ async function analyzeComments(comments: SocialComment[]): Promise<SocialComment
   if (!claudeKey || comments.length === 0) return comments
 
   try {
-    const Anthropic = require('@anthropic-ai/sdk')
-    const client = new Anthropic.Anthropic({ apiKey: claudeKey })
+    const client = new Anthropic({ apiKey: claudeKey })
 
     const commentList = comments.map((c, i) => `[${i}] "${c.text}"`).join('\n')
 

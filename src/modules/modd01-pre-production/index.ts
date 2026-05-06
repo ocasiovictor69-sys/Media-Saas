@@ -11,6 +11,7 @@
  */
 
 import { MediaServices, ModuleResult, OpportunityType } from '../../lib/types'
+import { Anthropic } from '@anthropic-ai/sdk'
 
 export interface PreProductionInputs {
   lead_id:          string
@@ -93,8 +94,7 @@ export async function execute(
 
   if (claudeKey) {
     try {
-      const Anthropic = require('@anthropic-ai/sdk')
-      const client = new Anthropic.Anthropic({ apiKey: claudeKey })
+      const client = new Anthropic({ apiKey: claudeKey })
 
       const prompt =
         `You are creating a 30-second outreach video script for a real estate opportunity.\n` +

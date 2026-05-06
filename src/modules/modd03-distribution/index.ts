@@ -53,11 +53,11 @@ async function postViaBuffer(params: {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
-        access_token:  token,
-        profile_ids[]: params.channelId,
-        text:          params.caption,
-        media[link]:   params.contentUrl,
-        media[title]:  'TomorrowNow AI',
+        'access_token':  token,
+        'profile_ids[]': params.channelId,
+        'text':          params.caption,
+        'media[link]':   params.contentUrl,
+        'media[title]':  'TomorrowNow AI',
       }),
     })
 
