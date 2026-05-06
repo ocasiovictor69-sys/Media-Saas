@@ -14,7 +14,7 @@ export interface PostProductionResult extends ModuleResult {
 
 export async function execute(
   inputs: PostProductionInputs,
-  db: any,
+  db: SupabaseClient,
   services: MediaServices
 ): Promise<PostProductionResult> {
   const { manifest } = inputs
