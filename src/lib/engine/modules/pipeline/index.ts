@@ -23,16 +23,16 @@ import { preflightCostCheck } from '@/lib/cost-guard'
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface PipelineResult {
-  success:     boolean
-  campaignId:  string
-  totalTasks:  number
-  submitted:   number
-  failed:      number
-  skipped:     number
+  success: boolean
+  campaignId: string
+  totalTasks: number
+  submitted: number
+  failed: number
+  skipped: number
   totalEstimatedCostUsd: number
-  jobs:        RouterResult[]
-  errors:      string[]
-  error?:      string
+  jobs: RouterResult[]
+  errors: string[]
+  error?: string
 }
 
 // ── Main Pipeline ─────────────────────────────────────────────────────────────
@@ -50,9 +50,9 @@ function getServiceClient() {
  * @param campaignId
  * @param teamId      — must match campaign.team_id (authorization)
  */
-export async function generateMediaPipeline(
+export async function execute(
   campaignId: string,
-  teamId:     string,
+  teamId: string,
 ): Promise<PipelineResult> {
   const db = getServiceClient()
 
@@ -66,16 +66,16 @@ export async function generateMediaPipeline(
 
   if (fetchError || !campaign) {
     return {
-      success:    false,
+      success: false,
       campaignId,
       totalTasks: 0,
-      submitted:  0,
-      failed:     0,
-      skipped:    0,
+      submitted: 0,
+      failed: 0,
+      skipped: 0,
       totalEstimatedCostUsd: 0,
-      jobs:       [],
-      errors:     [],
-      error:      `CAMPAIGN_NOT_FOUND: ${fetchError?.message || 'Campaign not found or access denied'}`,
+      jobs: [],
+      errors: [],
+      error: `CAMPAIGN_NOT_FOUND: ${fetchError?.message || 'Campaign not found or access denied'}`,
     }
   }
 
@@ -86,16 +86,16 @@ export async function generateMediaPipeline(
 
   if (!Array.isArray(mediaTasks) || mediaTasks.length === 0) {
     return {
-      success:    false,
+      success: false,
       campaignId,
       totalTasks: 0,
-      submitted:  0,
-      failed:     0,
-      skipped:    0,
+      submitted: 0,
+      failed: 0,
+      skipped: 0,
       totalEstimatedCostUsd: 0,
-      jobs:       [],
-      errors:     ['INVALID_STRATEGY: campaign.strategy.mediaTasks is missing or empty'],
-      error:      'INVALID_STRATEGY',
+      jobs: [],
+      errors: ['INVALID_STRATEGY: campaign.strategy.mediaTasks is missing or empty'],
+      error: 'INVALID_STRATEGY',
     }
   }
 
@@ -105,8 +105,8 @@ export async function generateMediaPipeline(
       .filter(t => t.type !== 'raw_edit')
       .map(t => ({
         generator: t.type === 'avatar' ? 'heygen'
-                 : t.type === 'broll' ? 'runway'
-                 : 'higgsfield' as Parameters<typeof preflightCostCheck>[0][0]['generator'],
+          : t.type === 'broll' ? 'runway'
+            : 'higgsfield' as Parameters<typeof preflightCostCheck>[0][0]['generator'],
         taskType: t.type,
       })),
     c.budgetUsd ?? null,
@@ -116,16 +116,16 @@ export async function generateMediaPipeline(
   if (!costCheck.allowed) {
     await db.from('campaigns').update({ status: 'failed' }).eq('id', campaignId)
     return {
-      success:    false,
+      success: false,
       campaignId,
       totalTasks: mediaTasks.length,
-      submitted:  0,
-      failed:     0,
-      skipped:    mediaTasks.length,
+      submitted: 0,
+      failed: 0,
+      skipped: mediaTasks.length,
       totalEstimatedCostUsd: costCheck.totalEstimated,
-      jobs:       [],
-      errors:     [costCheck.reason || 'BUDGET_EXCEEDED'],
-      error:      'BUDGET_EXCEEDED',
+      jobs: [],
+      errors: [costCheck.reason || 'BUDGET_EXCEEDED'],
+      error: 'BUDGET_EXCEEDED',
     }
   }
 
@@ -136,7 +136,7 @@ export async function generateMediaPipeline(
   const jobs: RouterResult[] = []
   const errors: string[] = []
   let submitted = 0
-  let failed    = 0
+  let failed = 0
   let totalCost = 0
 
   for (let i = 0; i < mediaTasks.length; i++) {
@@ -147,17 +147,17 @@ export async function generateMediaPipeline(
       const { data: asset } = await db
         .from('media_assets')
         .insert({
-          campaign_id:  campaignId,
-          client_id:    c.clientId,
-          team_id:      teamId,
-          type:         task.type === 'raw_edit' ? 'raw' : task.type,
-          format:       'video',
-          status:       'pending',
-          generator:    task.type === 'avatar' ? 'heygen'
-                      : task.type === 'broll'  ? 'runway'
-                      : task.type === 'cinematic' ? 'higgsfield'
-                      : 'ffmpeg',
-          metadata:     { task_index: i, task },
+          campaign_id: campaignId,
+          client_id: c.clientId,
+          team_id: teamId,
+          type: task.type === 'raw_edit' ? 'raw' : task.type,
+          format: 'video',
+          status: 'pending',
+          generator: task.type === 'avatar' ? 'heygen'
+            : task.type === 'broll' ? 'runway'
+              : task.type === 'cinematic' ? 'higgsfield'
+                : 'ffmpeg',
+          metadata: { task_index: i, task },
         })
         .select('id')
         .single()
@@ -199,14 +199,14 @@ export async function generateMediaPipeline(
 
   // ── Update campaign spend ──────────────────────────────────────────────────
   const newStatus = failed === mediaTasks.length ? 'failed'
-                  : submitted > 0 ? 'generating'
-                  : 'failed'
+    : submitted > 0 ? 'generating'
+      : 'failed'
 
   await db
     .from('campaigns')
     .update({
-      status:     newStatus,
-      spent_usd:  (c.spentUsd || 0) + totalCost,
+      status: newStatus,
+      spent_usd: (c.spentUsd || 0) + totalCost,
     })
     .eq('id', campaignId)
 
@@ -216,12 +216,12 @@ export async function generateMediaPipeline(
   )
 
   return {
-    success:    submitted > 0,
+    success: submitted > 0,
     campaignId,
     totalTasks: mediaTasks.length,
     submitted,
     failed,
-    skipped:    0,
+    skipped: 0,
     totalEstimatedCostUsd: +totalCost.toFixed(4),
     jobs,
     errors,

@@ -40,7 +40,7 @@ export interface RouterResult {
  * @param teamId      — for job record scoping
  * @param campaignId  — for job record scoping
  */
-export async function mediaRouter(
+export async function execute(
   task:       MediaTask,
   teamId:     string,
   campaignId: string,

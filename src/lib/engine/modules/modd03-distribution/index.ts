@@ -10,7 +10,7 @@
  *   - [D03-3] Neo4j relationship mapping for attribution loop
  */
 
-import { MediaServices, ModuleResult } from '../../lib/types'
+import { MediaServices, ModuleResult, SocialComment, SupabaseClient } from '@/lib/types'
 
 export interface DistributionInputs {
   content_url:  string
