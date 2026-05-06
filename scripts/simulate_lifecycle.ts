@@ -1,5 +1,5 @@
 import { execute as modD01 } from '../src/lib/engine/modules/modd01-pre-production/index';
-import { execute as modD02 } from '../src/lib/engine/modules/pipeline/index';
+import { execute as modD02 } from '../src/lib/engine/modules/modd02-post-production/index';
 import { execute as modD03 } from '../src/lib/engine/modules/modd03-distribution/index';
 import { execute as modD04 } from '../src/lib/engine/modules/modd04-engagement/index';
 

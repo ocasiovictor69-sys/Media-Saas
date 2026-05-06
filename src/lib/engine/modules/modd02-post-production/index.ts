@@ -1,4 +1,4 @@
-import { MediaServices, ModuleResult } from '../../lib/types'
+import { MediaServices, ModuleResult, SupabaseClient } from '@/lib/types'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
