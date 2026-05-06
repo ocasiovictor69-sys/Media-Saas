@@ -125,7 +125,7 @@ export class FlowMediaOrchestrator {
             platform:    'social'
           }, this.db, this.services)
 
-          if (result.engagement_count > 0) {
+          if (result.engagement_count && result.engagement_count > 0) {
              eventBus.dispatch(MEDIA_EVENTS.ENGAGEMENT_DETECTED, {
                campaignId,
                engagement: result
