@@ -179,7 +179,7 @@ export async function processRawMedia(
   return {
     ok:            true,
     assetId:       asset.id,
-    url,
+    url:           url ?? undefined,
     storagePath,
     md5Hash,
     fileSizeBytes: blob.size,

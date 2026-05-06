@@ -54,7 +54,8 @@ Return ONLY a JSON array: [{"index": 0, "sentiment": "...", "intent": "..."}]`,
       }],
     })
 
-    const raw  = response.content[0]?.text?.trim()
+    const textBlock = response.content.find(block => block.type === 'text')
+    const raw  = (textBlock as any)?.text?.trim()
     const json = JSON.parse(raw?.match(/\[[\s\S]*\]/)?.[0] || '[]') as Array<{
       index:     number
       sentiment: SocialComment['sentiment']

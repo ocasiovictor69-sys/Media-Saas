@@ -112,7 +112,8 @@ export async function execute(
         messages:   [{ role: 'user', content: prompt }],
       })
 
-      script = response.content[0]?.text?.trim() || buildFallbackScript(opportunity_type, property_details, archetype)
+      const textBlock = response.content.find(block => block.type === 'text')
+      script = (textBlock as any)?.text?.trim() || buildFallbackScript(opportunity_type, property_details, archetype)
     } catch (err) {
       console.warn(`[MOD-D01] Claude failed — using template: ${(err as Error).message}`)
       script = buildFallbackScript(opportunity_type, property_details, archetype)

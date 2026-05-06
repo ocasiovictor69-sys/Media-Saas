@@ -2,7 +2,8 @@
  * Flow-Media v2 — Shared Type Definitions
  * Extended from v1 MediaServices to support real generation layer.
  */
-export { SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseClient } from '@supabase/supabase-js'
+export { SupabaseClient }
 
 // ── Task Types ─────────────────────────────────────────────────────────────────
 
