@@ -32,8 +32,23 @@ export async function POST(req: NextRequest) {
   // Initialize orchestrator with required services
   const orchestrator = new FlowMediaOrchestrator({
     memory: {
-      captureContext:   async (p) => ({ ok: true }),
-      mapRelationships: async (p) => ({ ok: true })
+      captureContext:   async (p) => { console.log('[Memory] Context Captured', p); return { ok: true } },
+      mapRelationships: async (p) => { console.log('[Memory] Graph Updated', p); return { ok: true } }
+    },
+    video: {
+      generateAssets: async (brief) => ({ videoUrl: 'https://mock.com/vid.mp4', thumbnail: 'https://mock.com/thumb.jpg' }),
+      renderVideo:    async (manifest) => {
+        console.log('[Remotion] Rendering final composite...', manifest);
+        // This is where Remotion lambda render would be invoked.
+        return { outputUrl: `https://storage.tomorrownow.ai/composite/${manifest.lead_id || Date.now()}.mp4` }
+      }
+    },
+    social: {
+      distribute: async (content) => ({ success: true, links: [] }),
+      monitorEngagement: async (channelId) => {
+        console.log(`[Social] Fetching comments for ${channelId}`);
+        return { comments: [] }
+      }
     }
   })
 

@@ -1,6 +1,7 @@
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
 import { eventBus, MEDIA_EVENTS } from './event-bus'
-import { execute as modD02 } from './modules/pipeline' // This is the multi-task generator
+import { execute as runPipeline } from './modules/pipeline' // This is the multi-task generator
+import { execute as modD02 } from './modules/modd02-post-production'
 import { execute as modD03 } from './modules/modd03-distribution'
 import { execute as modD04 } from './modules/modd04-engagement'
 import { MediaServices, Campaign } from '../types'
@@ -61,7 +62,7 @@ export class FlowMediaOrchestrator {
     
     // 3. MOD-D02: Generation (Chained Pipeline)
     // We call the existing pipeline which handles the router + AI providers.
-    const generationResult = await modD02(campaignId, teamId)
+    const generationResult = await runPipeline(campaignId, teamId)
     
     if (generationResult.success) {
       eventBus.dispatch(MEDIA_EVENTS.GENERATION_SUBMITTED, { 
@@ -87,11 +88,21 @@ export class FlowMediaOrchestrator {
 
     if (!asset || asset.status !== 'ready') return
 
-    // 2. Trigger MOD-D03: Distribution
+    // 2. Trigger MOD-D02: Post-Production (Remotion Compositing)
+    const postResult = await modD02({
+      manifest: {
+        lead_id: asset.campaigns?.source_lead_id || 'unknown',
+        videoUrl: asset.url
+      }
+    }, this.db, this.services)
+
+    const finalOutputUrl = postResult.success ? postResult.output_url : asset.url
+
+    // 3. Trigger MOD-D03: Distribution
     const distResult = await modD03({
       campaign_id: asset.campaign_id,
       lead_id:     asset.campaigns?.source_lead_id || 'unknown',
-      content_url: asset.url,
+      content_url: finalOutputUrl || '',
       platforms:   ['facebook', 'instagram', 'linkedin'] // Default omnichannel
     }, this.db, this.services)
 
