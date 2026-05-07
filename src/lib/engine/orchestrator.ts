@@ -103,7 +103,7 @@ export class FlowMediaOrchestrator {
       campaign_id: asset.campaign_id,
       lead_id:     asset.campaigns?.source_lead_id || 'unknown',
       content_url: finalOutputUrl || '',
-      platforms:   ['facebook', 'instagram', 'linkedin'] // Default omnichannel
+      platforms:   ['instagram', 'youtube_shorts', 'tiktok', 'linkedin'] // Default omnichannel
     }, this.db, this.services)
 
     if (distResult.success) {

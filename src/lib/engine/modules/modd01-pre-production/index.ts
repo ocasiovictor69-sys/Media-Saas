@@ -92,20 +92,21 @@ export async function execute(
       const client = new Anthropic({ apiKey: claudeKey })
 
       const prompt =
-        `You are the Flow-Media Dynamic Creative Director.\n` +
-        `The client has submitted a request: "${property_details}".\n\n` +
+        `You are the Flow Media Dynamic Creative Director.\n` +
+        `The client has submitted a request or raw asset: "${property_details}".\n\n` +
         `Instructions:\n` +
-        `1. Determine if this is a request for a 'course', 'raw_edit' (e.g., Google Drive link, raw podcast footage), 'distribute_only' (fully finished video needing only social distribution), or a standard 'avatar' video.\n` +
+        `1. Determine the media intent: is this a request for a 'podcast', 'explainer', 'avatar', 'course', 'raw_edit', or 'distribute_only'?\n` +
         `2. Output a valid JSON array of tasks. Do not output anything else.\n` +
-        `3. If it's a course, create multiple tasks of type 'avatar', one for each chapter.\n` +
-        `4. If it's raw footage, output a task of type 'raw_edit' with 'rawMedia'.\n` +
-        `5. If it is already finished media just needing distribution, output a task of type 'distribute_only' with 'rawMedia'.\n\n` +
+        `3. For 'podcast', generate a multi-camera layout plan and script.\n` +
+        `4. For 'explainer', generate a dynamic script focusing on the core value prop.\n` +
+        `5. For 'avatar', generate a hyper-realistic script for the AI avatar.\n` +
+        `6. Always include a "branding" object in each task containing "primary_color", "font", and "logo_url" placeholders.\n\n` +
         `Format:\n` +
-        `[{"type": "avatar", "script": "..."}, {"type": "distribute_only", "rawMedia": {"storagePath": "..."}}]`
+        `[{"type": "explainer", "script": "...", "branding": {"primary_color": "#FF0000"}}]`
 
       const response = await client.messages.create({
-        model:      'claude-sonnet-4-5',
-        max_tokens: 1000,
+        model:      'claude-3-5-sonnet-20240620',
+        max_tokens: 1500,
         messages:   [{ role: 'user', content: prompt }],
       })
 

@@ -7,7 +7,7 @@ export { SupabaseClient }
 
 // ── Task Types ─────────────────────────────────────────────────────────────────
 
-export type MediaTaskType = 'avatar' | 'broll' | 'cinematic' | 'raw_edit' | 'course' | 'explainer' | 'distribute_only'
+export type MediaTaskType = 'avatar' | 'broll' | 'cinematic' | 'raw_edit' | 'course' | 'explainer' | 'distribute_only' | 'podcast'
 
 export type GeneratorName = 'heygen' | 'runway' | 'higgsfield' | 'ffmpeg' | 'raw'
 

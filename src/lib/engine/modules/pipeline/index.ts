@@ -104,7 +104,7 @@ export async function execute(
     mediaTasks
       .filter(t => t.type !== 'raw_edit')
       .map(t => ({
-        generator: t.type === 'avatar' ? 'heygen'
+        generator: ['avatar', 'course', 'explainer', 'podcast'].includes(t.type) ? 'heygen'
           : t.type === 'broll' ? 'runway'
             : 'higgsfield' as Parameters<typeof preflightCostCheck>[0][0]['generator'],
         taskType: t.type,
@@ -153,7 +153,7 @@ export async function execute(
           type: task.type === 'raw_edit' ? 'raw' : task.type,
           format: 'video',
           status: 'pending',
-          generator: task.type === 'avatar' ? 'heygen'
+          generator: ['avatar', 'course', 'explainer', 'podcast'].includes(task.type) ? 'heygen'
             : task.type === 'broll' ? 'runway'
               : task.type === 'cinematic' ? 'higgsfield'
                 : 'ffmpeg',

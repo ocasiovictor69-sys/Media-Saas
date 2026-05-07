@@ -51,6 +51,9 @@ export async function execute(
   // ── Dispatch to correct generator ──────────────────────────────────────────
   switch (task.type) {
     case 'avatar':
+    case 'course':
+    case 'explainer':
+    case 'podcast':
       generator = 'heygen'
       submitResult = await submitHeyGenJob({
         script:   task.script   || '',
