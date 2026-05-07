@@ -35,11 +35,16 @@ export async function POST(req: NextRequest) {
       captureContext:   async (p) => { console.log('[Memory] Context Captured', p); return { ok: true } },
       mapRelationships: async (p) => { console.log('[Memory] Graph Updated', p); return { ok: true } }
     },
-    video: {
-      generateAssets: async (brief) => ({ videoUrl: 'https://mock.com/vid.mp4', thumbnail: 'https://mock.com/thumb.jpg' }),
-      renderVideo:    async (manifest) => {
-        console.log('[Remotion] Rendering final composite...', manifest);
-        // This is where Remotion lambda render would be invoked.
+    creative: {
+      generateScript: async (brief) => ({ script: 'Mock tailored script', tone: 'professional' }),
+      generateCourse: async (topic, avatarId) => ({ chapters: [] })
+    },
+    production: {
+      ingestRawFootage: async (raw) => ({ assetId: 'raw-123', status: 'ready' }),
+      generateAIFootage: async (script, avatarId) => ({ assetId: 'ai-123', status: 'ready' }),
+      renderPostProduction: async (manifest) => {
+        console.log('[Post-Production] Compositing final media (Raw/AI/Graphics)...', manifest);
+        // This is where FFMPEG or Remotion lambda render is invoked
         return { outputUrl: `https://storage.tomorrownow.ai/composite/${manifest.lead_id || Date.now()}.mp4` }
       }
     },

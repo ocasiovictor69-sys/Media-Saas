@@ -7,7 +7,7 @@ export { SupabaseClient }
 
 // ── Task Types ─────────────────────────────────────────────────────────────────
 
-export type MediaTaskType = 'avatar' | 'broll' | 'cinematic' | 'raw_edit'
+export type MediaTaskType = 'avatar' | 'broll' | 'cinematic' | 'raw_edit' | 'course' | 'explainer' | 'distribute_only'
 
 export type GeneratorName = 'heygen' | 'runway' | 'higgsfield' | 'ffmpeg' | 'raw'
 
@@ -129,9 +129,14 @@ export interface MediaServices {
     captureContext:   (payload: Record<string, unknown>) => Promise<{ ok: boolean; error?: string }>
     mapRelationships: (payload: Record<string, unknown>) => Promise<{ ok: boolean; error?: string }>
   }
-  video?: {
-    generateAssets: (brief: Record<string, unknown>) => Promise<{ videoUrl: string; thumbnail: string }>
-    renderVideo:    (manifest: Record<string, unknown>) => Promise<{ outputUrl: string }>
+  creative?: {
+    generateScript: (brief: Record<string, unknown>) => Promise<{ script: string; tone: string }>
+    generateCourse: (topic: string, avatarId?: string) => Promise<{ chapters: any[] }>
+  }
+  production?: {
+    ingestRawFootage: (rawMediaRef: Record<string, unknown>) => Promise<{ assetId: string; status: string }>
+    generateAIFootage: (script: string, avatarId?: string) => Promise<{ assetId: string; status: string }>
+    renderPostProduction: (manifest: Record<string, unknown>) => Promise<{ outputUrl: string }>
   }
   social?: {
     distribute:        (content: Record<string, unknown>) => Promise<{ success: boolean; links: string[] }>

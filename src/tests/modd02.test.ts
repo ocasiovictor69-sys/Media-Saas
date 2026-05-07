@@ -5,7 +5,7 @@ describe('MOD-D02: Post-Production', () => {
     const db: any = {};
     const services: any = {
       memory: { captureContext: jest.fn().mockResolvedValue({ ok: true }) },
-      video: { renderVideo: jest.fn().mockResolvedValue({ outputUrl: 'http://output.com/final.mp4' }) }
+      production: { renderPostProduction: jest.fn().mockResolvedValue({ outputUrl: 'http://output.com/final.mp4' }) }
     };
 
     const inputs: PostProductionInputs = {
@@ -20,7 +20,7 @@ describe('MOD-D02: Post-Production', () => {
 
     expect(result.success).toBe(true);
     expect(result.output_url).toBe('http://output.com/final.mp4');
-    expect(services.video.renderVideo).toHaveBeenCalled();
+    expect(services.production.renderPostProduction).toHaveBeenCalled();
     expect(services.memory.captureContext).toHaveBeenCalledWith(expect.objectContaining({
       type: 'video_render_completed'
     }));

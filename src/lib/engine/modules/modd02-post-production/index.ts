@@ -22,12 +22,12 @@ export async function execute(
   console.log(`[MOD-D02] Initiating Post-Production for manifest of lead: ${manifest.lead_id}`)
 
   // 1. Strict Service Validation
-  if (!services.memory || !services.video) {
-    return { success: false, transition: 'MOD-HALT', error: 'SERVICE_MISSING: Module requires Memory and Video services' }
+  if (!services.memory || !services.production) {
+    return { success: false, transition: 'MOD-HALT', error: 'SERVICE_MISSING: Module requires Memory and Production services' }
   }
 
-  // 2. Execution: Render Video (Simulated Remotion)
-  const renderRes = await services.video.renderVideo(manifest)
+  // 2. Execution: Render Final Post-Production (Handles raw footage compositing or AI compositing)
+  const renderRes = await services.production.renderPostProduction(manifest)
 
   // 3. Memory Layer: Working Context (Zep)
   await services.memory.captureContext({

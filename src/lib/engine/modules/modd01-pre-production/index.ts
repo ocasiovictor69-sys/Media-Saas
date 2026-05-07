@@ -81,68 +81,57 @@ export async function execute(
     return { success: false, transition: 'MOD-HALT', error: 'SERVICE_MISSING: memory service required' }
   }
 
-  // ── Generate script via Claude ────────────────────────────────────────────
-  let script: string
+  // ── Generate Tasks via Claude (Intent Parsing) ─────────────────────────
+  let tasks: any[] = []
 
   const claudeKey = process.env.ANTHROPIC_API_KEY
-  const tone      = SCRIPT_TONE[opportunity_type]
-
-  const financialContext = financial_summary
-    ? `Key metrics: Cap Rate ${((financial_summary.cap_rate || 0) * 100).toFixed(1)}%, ` +
-      `DSCR ${(financial_summary.dscr || 0).toFixed(2)}, NOI $${(financial_summary.noi || 0).toLocaleString()}/yr.`
-    : ''
+  const tone      = SCRIPT_TONE[opportunity_type] || 'professional'
 
   if (claudeKey) {
     try {
       const client = new Anthropic({ apiKey: claudeKey })
 
       const prompt =
-        `You are creating a 30-second outreach video script for a real estate opportunity.\n` +
-        `Property: ${property_details}\n` +
-        `Seller archetype: ${archetype}\n` +
-        `Opportunity type: ${opportunity_type}\n` +
-        `${financialContext}\n\n` +
-        `Tone: ${tone}\n\n` +
-        `Write ONLY the spoken script (no stage directions, no labels). ` +
-        `Under 90 words. Start with a hook. End with a clear single call to action.`
+        `You are the Flow-Media Dynamic Creative Director.\n` +
+        `The client has submitted a request: "${property_details}".\n\n` +
+        `Instructions:\n` +
+        `1. Determine if this is a request for a 'course', 'raw_edit' (e.g., Google Drive link, raw podcast footage), 'distribute_only' (fully finished video needing only social distribution), or a standard 'avatar' video.\n` +
+        `2. Output a valid JSON array of tasks. Do not output anything else.\n` +
+        `3. If it's a course, create multiple tasks of type 'avatar', one for each chapter.\n` +
+        `4. If it's raw footage, output a task of type 'raw_edit' with 'rawMedia'.\n` +
+        `5. If it is already finished media just needing distribution, output a task of type 'distribute_only' with 'rawMedia'.\n\n` +
+        `Format:\n` +
+        `[{"type": "avatar", "script": "..."}, {"type": "distribute_only", "rawMedia": {"storagePath": "..."}}]`
 
       const response = await client.messages.create({
         model:      'claude-sonnet-4-5',
-        max_tokens: 200,
+        max_tokens: 1000,
         messages:   [{ role: 'user', content: prompt }],
       })
 
       const textBlock = response.content.find(block => block.type === 'text')
-      script = (textBlock as any)?.text?.trim() || buildFallbackScript(opportunity_type, property_details, archetype)
+      const rawText = (textBlock as any)?.text?.trim() || '[]'
+      
+      // Extract JSON from potential markdown blocks
+      const jsonStr = rawText.replace(/```json/g, '').replace(/```/g, '').trim()
+      tasks = JSON.parse(jsonStr)
     } catch (err) {
-      console.warn(`[MOD-D01] Claude failed — using template: ${(err as Error).message}`)
-      script = buildFallbackScript(opportunity_type, property_details, archetype)
+      console.warn(`[MOD-D01] Claude failed — using fallback task: ${(err as Error).message}`)
+      tasks = [{ type: 'avatar', script: buildFallbackScript(opportunity_type, property_details, archetype) }]
     }
   } else {
-    script = buildFallbackScript(opportunity_type, property_details, archetype)
-  }
-
-  // ── Build manifest ────────────────────────────────────────────────────────
-  const manifest: VideoManifest = {
-    lead_id,
-    script,
-    avatar_id,
-    voice_id,
-    aspect_ratio: '9:16',
-    bg_prompt:    BG_PROMPTS[opportunity_type],
-    music:        opportunity_type === 'institutional' ? 'corporate_minimal' : 'cinematic_uplifting',
-    opportunity_type,
+    tasks = [{ type: 'avatar', script: buildFallbackScript(opportunity_type, property_details, archetype) }]
   }
 
   // ── Persist to memory ─────────────────────────────────────────────────────
   await services.memory.captureContext({
-    type:      'video_manifest_generated',
+    type:      'video_tasks_generated',
     lead_id,
-    manifest,
+    tasks,
     timestamp: new Date().toISOString(),
   })
 
-  return { success: true, manifest, transition: 'MOD-D02' }
+  return { success: true, generatedTasks: tasks, transition: 'MOD-D02' }
 }
 
 // ── Template fallback ─────────────────────────────────────────────────────────
