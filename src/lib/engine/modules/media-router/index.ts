@@ -77,10 +77,11 @@ export async function execute(
       break
 
     case 'raw_edit':
-      // Raw edit is handled locally — no AI generator, no job record needed
+    case 'distribute_only':
+      // Handled locally or bypassing AI generator — no job record needed here
       return {
-        taskType:         'raw_edit',
-        generator:        'ffmpeg',
+        taskType:         task.type,
+        generator:        task.type === 'raw_edit' ? 'ffmpeg' : 'bypass',
         estimatedCostUsd: 0,
         ok:               true,
       }
