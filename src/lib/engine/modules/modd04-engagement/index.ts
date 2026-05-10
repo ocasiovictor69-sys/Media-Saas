@@ -76,43 +76,52 @@ Return ONLY a JSON array: [{"index": 0, "sentiment": "...", "intent": "..."}]`,
   }
 }
 
-// ── Agento re-ingestion ───────────────────────────────────────────────────────
+// ── Cross-silo event dispatch (silo-safe) ────────────────────────────────────
 
 /**
- * Route a high-intent comment back to Agento as a new ingest lead.
- * Calls the Agento /api/pipeline/ingest endpoint on the local stack.
+ * Route a high-intent comment to Agento via the shared cross_silo_events table.
+ * This replaces the previous direct HTTP call to Agento's /api/pipeline/ingest,
+ * which violated silo sovereignty. Agento polls this table independently.
  */
-async function reIngestToAgento(comment: SocialComment, campaignId: string): Promise<string | null> {
-  const agentoToken = process.env.AGENTO_INGEST_TOKEN
-  const agentoUrl   = process.env.AGENTO_BASE_URL || 'http://localhost:3000'
-  if (!agentoToken) return null
-
+async function reIngestToAgento(
+  comment: SocialComment,
+  campaignId: string,
+  db: SupabaseClient,
+): Promise<string | null> {
   try {
-    const res = await fetch(`${agentoUrl}/api/pipeline/ingest`, {
-      method:  'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${agentoToken}`,
-      },
-      body: JSON.stringify({
-        source:      'social_engagement',
-        external_id: `social_${comment.id}`,
-        address:     `social_lead_${campaignId}`,
-        metadata: {
-          platform:    comment.platform,
-          author:      comment.author,
-          comment:     comment.text,
-          campaign_id: campaignId,
-          intent:      comment.intent,
-        },
-      }),
-    })
+    const eventId = `social_${comment.id}_${Date.now()}`
 
-    if (!res.ok) return null
-    const data = await res.json()
-    return data?.property_id || null
+    const { error } = await db
+      .from('cross_silo_events')
+      .insert({
+        id:          eventId,
+        source_silo: 'media',
+        target_silo: 'agento',
+        event_type:  'social_lead_ingest',
+        status:      'pending',
+        payload: {
+          source:      'social_engagement',
+          external_id: `social_${comment.id}`,
+          address:     `social_lead_${campaignId}`,
+          metadata: {
+            platform:    comment.platform,
+            author:      comment.author,
+            comment:     comment.text,
+            campaign_id: campaignId,
+            intent:      comment.intent,
+          },
+        },
+        created_at: new Date().toISOString(),
+      })
+
+    if (error) {
+      console.warn(`[MOD-D04] Cross-silo event insert failed: ${error.message}`)
+      return null
+    }
+
+    return eventId
   } catch (err) {
-    console.warn(`[MOD-D04] Agento re-ingest failed: ${(err as Error).message}`)
+    console.warn(`[MOD-D04] Cross-silo event dispatch failed: ${(err as Error).message}`)
     return null
   }
 }
@@ -144,7 +153,7 @@ export async function execute(
   const reIngestedLeads: string[] = []
 
   for (const comment of highIntentComments) {
-    const leadId = await reIngestToAgento(comment, campaign_id)
+    const leadId = await reIngestToAgento(comment, campaign_id, db)
     if (leadId) {
       reIngestedLeads.push(leadId)
       console.log(`[MOD-D04] Re-ingested lead → Agento | ${comment.author} → ${leadId}`)
