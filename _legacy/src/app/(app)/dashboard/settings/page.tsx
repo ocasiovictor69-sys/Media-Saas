@@ -70,10 +70,15 @@ export default function SettingsPage() {
   const handlePasswordChange = async () => {
     setPwError(null);
     setPwSaved(false);
+    if (!pwForm.current) { setPwError('Enter your current password'); return; }
     if (pwForm.next !== pwForm.confirm) { setPwError('Passwords do not match'); return; }
     if (pwForm.next.length < 8) { setPwError('Password must be at least 8 characters'); return; }
     setPwLoading(true);
     const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user?.email) { setPwError('Unable to verify identity'); setPwLoading(false); return; }
+    const { error: verifyErr } = await supabase.auth.signInWithPassword({ email: user.email, password: pwForm.current });
+    if (verifyErr) { setPwError('Current password is incorrect'); setPwLoading(false); return; }
     const { error: pwErr } = await supabase.auth.updateUser({ password: pwForm.next });
     if (pwErr) setPwError(pwErr.message);
     else { setPwSaved(true); setPwForm({ current: '', next: '', confirm: '' }); }

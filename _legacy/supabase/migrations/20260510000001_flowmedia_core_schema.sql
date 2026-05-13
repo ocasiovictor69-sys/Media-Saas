@@ -81,19 +81,24 @@ CREATE TABLE IF NOT EXISTS briefs (
 );
 
 -- ── Campaigns ────────────────────────────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS campaigns (
-  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  client_id     UUID NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
-  name          TEXT NOT NULL,
-  status        TEXT NOT NULL DEFAULT 'draft' CHECK (status IN (
-                  'draft', 'awaiting_first_approval', 'autopilot', 'paused', 'complete'
-                )),
-  autopilot     BOOLEAN DEFAULT FALSE,
-  schedule_cron TEXT,
-  platforms     TEXT[] DEFAULT '{}',
-  created_at    TIMESTAMPTZ DEFAULT now(),
-  updated_at    TIMESTAMPTZ DEFAULT now()
-);
+-- ── Campaigns (Consolidated) ────────────────────────────────────────────────
+-- campaigns table already created in 20260506000001_flow_media_v2.sql
+ALTER TABLE public.campaigns ADD COLUMN IF NOT EXISTS autopilot BOOLEAN DEFAULT FALSE;
+ALTER TABLE public.campaigns ADD COLUMN IF NOT EXISTS schedule_cron TEXT;
+ALTER TABLE public.campaigns ADD COLUMN IF NOT EXISTS platforms TEXT[] DEFAULT '{}';
+
+-- Update status check to include new statuses from both definitions
+ALTER TABLE public.campaigns DROP CONSTRAINT IF EXISTS campaigns_status_check;
+ALTER TABLE public.campaigns ADD CONSTRAINT campaigns_status_check 
+  CHECK (status IN ('draft', 'queued', 'generating', 'complete', 'failed', 'awaiting_first_approval', 'autopilot', 'paused'));
+
+-- Ensure client_id references the clients table
+ALTER TABLE public.campaigns 
+  DROP CONSTRAINT IF EXISTS campaigns_client_id_fkey;
+ALTER TABLE public.campaigns 
+  ADD CONSTRAINT campaigns_client_id_fkey 
+  FOREIGN KEY (client_id) REFERENCES public.clients(id) ON DELETE CASCADE;
+
 
 -- ── Approvals (Checkpoint Queue) ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS approvals (

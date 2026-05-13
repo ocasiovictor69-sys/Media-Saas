@@ -49,7 +49,7 @@ steps:
       - '--cpu=1'
       - '--min-instances=0'
       - '--max-instances=10'
-      - '--set-secrets=NEXT_PUBLIC_SUPABASE_URL=MEDIA_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=MEDIA_SUPABASE_ANON_KEY:latest,RESEND_API_KEY=MEDIA_RESEND_API_KEY:latest,NOTIFY_EMAIL=MEDIA_NOTIFY_EMAIL:latest'
+      - '--set-secrets=NEXT_PUBLIC_SUPABASE_URL=MEDIA_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=MEDIA_SUPABASE_ANON_KEY:latest,SUPABASE_SERVICE_ROLE_KEY=MEDIA_SUPABASE_SERVICE_ROLE_KEY:latest,RESEND_API_KEY=MEDIA_RESEND_API_KEY:latest,NOTIFY_EMAIL=MEDIA_NOTIFY_EMAIL:latest,STRIPE_SECRET_KEY=MEDIA_STRIPE_SECRET_KEY:latest,STRIPE_WEBHOOK_SECRET=MEDIA_STRIPE_WEBHOOK_SECRET:latest,HEYGEN_API_KEY=MEDIA_HEYGEN_API_KEY:latest,RUNWAY_API_KEY=MEDIA_RUNWAY_API_KEY:latest,HIGGSFIELD_API_KEY=MEDIA_HIGGSFIELD_API_KEY:latest,CLOUDFLARE_R2_ACCESS_KEY=MEDIA_CLOUDFLARE_R2_ACCESS_KEY:latest,CLOUDFLARE_R2_SECRET_KEY=MEDIA_CLOUDFLARE_R2_SECRET_KEY:latest,CLOUDFLARE_R2_BUCKET=MEDIA_CLOUDFLARE_R2_BUCKET:latest,CLOUDFLARE_R2_ENDPOINT=MEDIA_CLOUDFLARE_R2_ENDPOINT:latest,ANTHROPIC_API_KEY=MEDIA_ANTHROPIC_API_KEY:latest'
 
 availableSecrets:
   secretManager:
@@ -57,10 +57,32 @@ availableSecrets:
       env: 'NEXT_PUBLIC_SUPABASE_URL'
     - versionName: projects/$PROJECT_ID/secrets/MEDIA_SUPABASE_ANON_KEY/versions/latest
       env: 'NEXT_PUBLIC_SUPABASE_ANON_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_SUPABASE_SERVICE_ROLE_KEY/versions/latest
+      env: 'SUPABASE_SERVICE_ROLE_KEY'
     - versionName: projects/$PROJECT_ID/secrets/MEDIA_RESEND_API_KEY/versions/latest
       env: 'RESEND_API_KEY'
     - versionName: projects/$PROJECT_ID/secrets/MEDIA_NOTIFY_EMAIL/versions/latest
       env: 'NOTIFY_EMAIL'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_STRIPE_SECRET_KEY/versions/latest
+      env: 'STRIPE_SECRET_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_STRIPE_WEBHOOK_SECRET/versions/latest
+      env: 'STRIPE_WEBHOOK_SECRET'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_HEYGEN_API_KEY/versions/latest
+      env: 'HEYGEN_API_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_RUNWAY_API_KEY/versions/latest
+      env: 'RUNWAY_API_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_HIGGSFIELD_API_KEY/versions/latest
+      env: 'HIGGSFIELD_API_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_CLOUDFLARE_R2_ACCESS_KEY/versions/latest
+      env: 'CLOUDFLARE_R2_ACCESS_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_CLOUDFLARE_R2_SECRET_KEY/versions/latest
+      env: 'CLOUDFLARE_R2_SECRET_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_CLOUDFLARE_R2_BUCKET/versions/latest
+      env: 'CLOUDFLARE_R2_BUCKET'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_CLOUDFLARE_R2_ENDPOINT/versions/latest
+      env: 'CLOUDFLARE_R2_ENDPOINT'
+    - versionName: projects/$PROJECT_ID/secrets/MEDIA_ANTHROPIC_API_KEY/versions/latest
+      env: 'ANTHROPIC_API_KEY'
 
 images:
   - '$_IMAGE:$SHORT_SHA'

@@ -57,8 +57,8 @@ create table if not exists public.media_assets (
   generation_cost_usd numeric(8,4) default 0,
   metadata        jsonb not null default '{}',  -- full API response
 
-  -- Job reference (async generation tracking)
-  job_id          uuid references public.generation_jobs(id) on delete set null,
+  -- Job reference (async generation tracking) — FK added below after generation_jobs is created
+  job_id          uuid,
 
   created_at      timestamptz not null default now(),
   updated_at      timestamptz not null default now()
