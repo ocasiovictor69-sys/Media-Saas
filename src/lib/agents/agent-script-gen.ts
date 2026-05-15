@@ -14,7 +14,7 @@ export class AgentScriptGen extends AgentRunner {
 
   async run(input: AgentInput): Promise<AgentResult> {
     const { team_id, payload } = input
-    const topic = payload?.topic || 'Real Estate Investment'
+    const topic = payload?.topic || 'Media Production Strategy'
 
     try {
       // 1. Generate Script via Anthropic

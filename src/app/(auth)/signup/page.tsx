@@ -4,7 +4,7 @@ import SignupForm from '@/components/auth/SignupForm'
 
 export const metadata: Metadata = {
   title: 'Create Account — Flow Media Deal Engine',
-  description: 'Get started with Flow Media and access your AI-powered real estate deal engine.',
+  description: 'Get started with Flow Media and access your AI-powered AI media production engine.',
 }
 
 export default function SignupPage() {

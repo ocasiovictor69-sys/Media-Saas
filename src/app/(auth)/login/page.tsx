@@ -4,7 +4,7 @@ import LoginForm from '@/components/auth/LoginForm'
 
 export const metadata: Metadata = {
   title: 'Sign In — Flow Media Deal Engine',
-  description: 'Sign in to your Flow Media account to access your real estate deal engine.',
+  description: 'Sign in to your Flow Media account to access your AI media production engine.',
 }
 
 export default function LoginPage() {

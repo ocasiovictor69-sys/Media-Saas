@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata: Metadata = {
-  title: 'Flow Media | AI Real Estate Deal Engine',
-  description: 'Deterministic underwriting and AI-driven real estate orchestration.',
+  title: 'Flow Media | AI Splicer Production Engine',
+  description: 'Deterministic media production and AI-driven splicer orchestration.',
 };
 
 export default function RootLayout({
