@@ -7,27 +7,18 @@ export const metadata: Metadata = {
 }
 
 const WORKFLOWS = [
-  { id: 'A01', label: 'Goliath / PropStream Data Pull', pipeline: 'both' },
-  { id: 'A02', label: 'Dedup + Skip Trace', pipeline: 'both' },
-  { id: 'A03', label: 'Enrichment (AVM / Comping)', pipeline: 'both' },
-  { id: 'A04', label: 'Four-D Scorer', pipeline: '1' },
-  { id: 'A05', label: 'Investor Deal Grader', pipeline: '2' },
-  { id: 'A06', label: 'Retell AI Voice Call', pipeline: '1' },
-  { id: 'A07', label: 'Twilio SMS Follow-Up', pipeline: '1' },
-  { id: 'A08', label: 'REsimpli 3.0 Contact Creation', pipeline: 'both' },
-  { id: 'A09', label: 'Seller SMS Nurture (28 pts)', pipeline: '1' },
-  { id: 'A10', label: 'Seller Email Nurture', pipeline: '1' },
-  { id: 'A11', label: 'Re-Engagement Detection', pipeline: '1' },
-  { id: 'A12', label: 'Investor Deal Alert', pipeline: '2' },
-  { id: 'A13', label: 'Appointment Brief Email', pipeline: '1' },
-  { id: 'A14', label: 'Investor Follow-Up Seq.', pipeline: '2' },
+  { id: 'M01', label: 'AI Script Generation (Anthropic)', pipeline: 'both' },
+  { id: 'M02', label: 'Dynamic Video Rendering', pipeline: 'both' },
+  { id: 'M03', label: 'Automated Social Distribution', pipeline: 'both' },
+  { id: 'M04', label: 'Asset Storage (AWS S3)', pipeline: 'both' },
+  { id: 'M05', label: 'Caption & Subtitle Generation', pipeline: 'both' },
+  { id: 'M06', label: 'Thumbnail AI Generation', pipeline: 'both' },
 ]
 
 export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Fetch lead stats from Supabase
   const { data: profile } = await supabase
     .from('profiles')
     .select('team_id, full_name, role')
@@ -36,22 +27,19 @@ export default async function DashboardPage() {
 
   const teamId = profile?.team_id
 
-  let p1Count = 0, p2Count = 0, highCount = 0, avgScore = 0
+  let assetCount = 0, jobCount = 0, distCount = 0, renderHealth = 0
 
   if (teamId) {
-    const { data: leads } = await supabase
-      .from('leads')
-      .select('pipeline, priority, score')
-      .eq('team_id', teamId)
+    const [{ count: aCount }, { count: jCount }, { count: dCount }] = await Promise.all([
+      supabase.from('media_assets').select('*', { count: 'exact', head: true }).eq('team_id', teamId),
+      supabase.from('render_jobs').select('*', { count: 'exact', head: true }).eq('team_id', teamId),
+      supabase.from('social_distributions').select('*', { count: 'exact', head: true }).eq('team_id', teamId)
+    ])
 
-    if (leads) {
-      p1Count = leads.filter(l => !l.pipeline || l.pipeline === '1').length
-      p2Count = leads.filter(l => l.pipeline === '2').length
-      highCount = leads.filter(l => l.priority === 'HIGH').length
-      avgScore = leads.length > 0
-        ? Math.round(leads.reduce((s, l) => s + (l.score ?? 0), 0) / leads.length)
-        : 0
-    }
+    assetCount = aCount || 0
+    jobCount = jCount || 0
+    distCount = dCount || 0
+    renderHealth = 100 // System status
   }
 
   const displayName = profile?.full_name ?? user?.email?.split('@')[0] ?? 'Agent'
@@ -89,10 +77,10 @@ export default async function DashboardPage() {
       {/* Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Seller Leads (P1)', value: p1Count, color: 'from-indigo-500 to-indigo-600' },
-          { label: 'Investor Deals (P2)', value: p2Count, color: 'from-violet-500 to-violet-600' },
-          { label: 'High Signal', value: highCount, color: 'from-rose-500 to-rose-600' },
-          { label: 'Avg 4-D Score', value: avgScore, color: 'from-emerald-500 to-emerald-600' },
+          { label: 'Media Assets', value: assetCount, color: 'from-indigo-500 to-indigo-600' },
+          { label: 'Rendering Jobs', value: jobCount, color: 'from-violet-500 to-violet-600' },
+          { label: 'Scheduled Posts', value: distCount, color: 'from-rose-500 to-rose-600' },
+          { label: 'System Health', value: `${renderHealth}%`, color: 'from-emerald-500 to-emerald-600' },
         ].map((card) => (
           <div key={card.label} className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all">
             <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-3">{card.label}</p>
@@ -108,7 +96,7 @@ export default async function DashboardPage() {
         <div className="flex items-center gap-3 mb-5">
           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           <p className="text-sm font-bold text-slate-300 tracking-wide">
-            {WORKFLOWS.length} Automated Workflows Active
+            {WORKFLOWS.length} Media Production Modules Active
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -127,9 +115,9 @@ export default async function DashboardPage() {
       {/* Quick Links */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { href: '/leads', title: 'Lead Pipeline', desc: 'View and manage all seller & investor leads', icon: '👥' },
-          { href: '/team', title: 'Team', desc: 'Manage your team members and roles', icon: '👨‍💼' },
-          { href: '/settings', title: 'Settings', desc: 'Configure your account and integrations', icon: '⚙️' },
+          { href: '/media', title: 'Asset Library', desc: 'Manage your video, image, and audio assets', icon: '📁' },
+          { href: '/scripts', title: 'Script Studio', desc: 'AI-driven script generation and editing', icon: '✍️' },
+          { href: '/render', title: 'Render Queue', desc: 'Monitor active video rendering and upscaling', icon: '🎞️' },
         ].map((item) => (
           <a
             key={item.href}
