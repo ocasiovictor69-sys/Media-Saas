@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
-  title: 'Dashboard — Flow Media Deal Engine',
-  description: 'Your real estate deal engine. Two pipelines, running 24/7.',
+  title: 'Dashboard — Flow Media AI Production',
+  description: 'Institutional AI media production and distribution core.',
 }
 
 const WORKFLOWS = [
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
             Flow Media Intelligence
           </p>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-            Deal{' '}
+            Splicer{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-400">
               Engine
             </span>
@@ -63,14 +63,14 @@ export default async function DashboardPage() {
           </p>
         </div>
         <a
-          href="/leads"
-          id="dashboard-view-leads"
+          href="/media"
+          id="dashboard-view-assets"
           className="hidden md:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 text-sm"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
-          View Leads
+          View Assets
         </a>
       </div>
 
