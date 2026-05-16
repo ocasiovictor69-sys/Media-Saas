@@ -1,1 +1,74 @@
-{'module': 7}
+{
+  "module": 7,
+  "title": "REINVENTION",
+  "timeline_seconds": 42,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#1a1a2e", "#3a7ca5", "#00b4d8", "#90e0ef", "#ffffff"],
+    "mood": "explosive_transformation_liberation",
+    "temperature": "cool_to_crisp_bright",
+    "saturation": "dynamic_0.5_to_0.9",
+    "contrast": 1.3,
+    "grain": false,
+    "vignette_strength": "decreases_0.3_to_0.05",
+    "energy_level": "high",
+    "particle_effects": true
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 80,
+    "subtitle_size": 32,
+    "caption_size": 24,
+    "title_color": "#ffffff",
+    "caption_color": "#e0e0e0",
+    "title_animation": "scaleIn_burst",
+    "title_position": { "x": "center", "y": 0.18 }
+  },
+  "composition": {
+    "style": "cinematic_wide",
+    "letterbox_height": "decreases_60_to_20",
+    "background_mode": "blurred_video",
+    "blur_amount": "decreases_15_to_5",
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 450 },
+    "camera_motion": "dynamic_tracking_shot",
+    "prison_motif": {
+      "bars_dissolve": { "start_time": 8.0, "end_time": 15.0 },
+      "chains_break_particle_effect": { "time": 12.0, "color": "#00b4d8" },
+      "mind_unlock_visual": { "time": 20.0, "expansion_radius": 600 }
+    },
+    "transformation_sequence": {
+      "sticks_and_stones": { "visual": "textured_earth_stone", "time_range": [0, 12] },
+      "systems_and_code": { "visual": "glowing_network_lines", "time_range": [12, 42] }
+    }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_bars" },
+      { "time": 4.0, "beat": "26_years_prison", "action": "physical_prison_visual" },
+      { "time": 10.0, "beat": "prison_of_mind", "action": "mental_prison_overlay" },
+      { "time": 18.0, "beat": "ai_tell_me_not_to_worry", "action": "bars_begin_dissolving" },
+      { "time": 25.0, "beat": "agentic_orchestration", "action": "systems_visual_erupt" },
+      { "time": 30.0, "beat": "90_percent_didnt_know", "action": "data_flow_particles" },
+      { "time": 36.0, "beat": "sticks_and_stones_to_systems", "action": "full_transformation_complete" },
+      { "time": 41.0, "beat": "module_end", "action": "hold_electric_blue" }
+    ],
+    "music_volume": "builds_0.15_to_0.35",
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 12.0, "type": "chain_break_metallic", "volume": 0.1 },
+      { "time": 18.0, "type": "barrier_dissolve", "volume": 0.08 },
+      { "time": 25.0, "type": "digital_surge", "volume": 0.12 },
+      { "time": 36.0, "type": "orchestral_hit_bright", "volume": 0.15 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "VII", "opacity": 0.25, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#00b4d8", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "energy_burst", "duration": 1.2, "easing": "easeOut" },
+    { "type": "crossfade", "duration": 1.0, "easing": "easeInOut" }
+  ]
+}

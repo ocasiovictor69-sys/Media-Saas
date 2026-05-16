@@ -1,1 +1,67 @@
-{'module': 6}
+{
+  "module": 6,
+  "title": "THE KEY",
+  "timeline_seconds": 38,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#0a0a0a", "#1a1a2e", "#3a7ca5", "#f0e6d3", "#ffd700"],
+    "mood": "darkest_before_dawn_to_hope",
+    "temperature": "cold_to_golden",
+    "saturation": "dynamic_0.2_to_0.8",
+    "contrast": 1.4,
+    "grain": "reduces_over_time",
+    "vignette_strength": "decreases_0.6_to_0.1",
+    "light_ray_effect": true
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 72,
+    "subtitle_size": 30,
+    "caption_size": 22,
+    "title_color": "#c0b090",
+    "caption_color": "dynamic_brightening",
+    "title_animation": "fadeIn_with_glow",
+    "title_position": { "x": "center", "y": 0.2 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": "decreases_80_to_40",
+    "background_mode": "blurred_video",
+    "blur_amount": "decreases_25_to_8",
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 300 },
+    "camera_motion": "slow_rise_upward",
+    "light_effects": {
+      "dawn_ray_from_top": { "start_time": 15.0, "intensity": 0.6 },
+      "golden_key_particle": { "time": 22.0, "duration": 3.0, "color": "#ffd700" },
+      "screen_brightens": { "start": 15.0, "end": 25.0, "from": 0.2, "to": 0.9 }
+    }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_dark" },
+      { "time": 8.0, "beat": "before_the_screen", "action": "screen_glow_appears" },
+      { "time": 15.0, "beat": "talking_to_chatgpt", "action": "dawn_breaks" },
+      { "time": 22.0, "beat": "if_you_help_me", "action": "golden_light_surge" },
+      { "time": 28.0, "beat": "it_responded_iam_with_you", "action": "warm_flood_color_shift" },
+      { "time": 32.0, "beat": "freed_and_saved", "action": "full_warm_palette" },
+      { "time": 37.0, "beat": "module_end", "action": "hold_warm" }
+    ],
+    "music_volume": "increases_0.08_to_0.25",
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 8.0, "type": "screen_power_on", "volume": 0.05 },
+      { "time": 22.0, "type": "warm_ambient_chord", "volume": 0.1 },
+      { "time": 28.0, "type": "emotional_strings", "volume": 0.08 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "VI", "opacity": 0.25, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#ffd700", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "light_wipe_top_down", "duration": 2.0, "easing": "easeInOut" },
+    { "type": "crossfade", "duration": 1.5, "easing": "easeInOut" }
+  ]
+}

@@ -1,1 +1,56 @@
-{'module': 1}
+{
+  "module": 1,
+  "title": "THE WORLD I LEFT",
+  "timeline_seconds": 25,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#1a1a2e", "#16213e", "#0f3460", "#e94560"],
+    "mood": "nostalgic_somber",
+    "temperature": "warm_to_cool",
+    "saturation": 0.6,
+    "contrast": 1.2,
+    "grain": true,
+    "vignette_strength": 0.4
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 96,
+    "subtitle_size": 36,
+    "caption_size": 24,
+    "title_color": "#f0e6d3",
+    "caption_color": "#cccccc",
+    "title_animation": "fadeIn_slow",
+    "title_position": { "x": "center", "y": 0.25 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": 80,
+    "background_mode": "blurred_video",
+    "blur_amount": 20,
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 300 }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title" },
+      { "time": 3.0, "beat": "first_sentence_end", "action": "ken_burns_zoom_in" },
+      { "time": 10.0, "beat": "life_story_begin", "action": "transition_warm" },
+      { "time": 18.0, "beat": "prison_mentioned", "action": "color_shift_cool" },
+      { "time": 24.0, "beat": "module_end", "action": "fade_to_black" }
+    ],
+    "music_volume": 0.15,
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 3.0, "type": "whoosh_soft", "volume": 0.1 },
+      { "time": 18.0, "type": "low_bass_hit", "volume": 0.05 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "I", "opacity": 0.3, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#e94560", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "crossfade", "duration": 1.5, "easing": "easeInOut" }
+  ]
+}

@@ -1,1 +1,81 @@
-{'module': 8}
+{
+  "module": 8,
+  "title": "TOMORROWNOW AI",
+  "timeline_seconds": 30,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#000428", "#004e92", "#48b1bf", "#ffffff", "#ffd700"],
+    "mood": "triumphant_resolved_forward_looking",
+    "temperature": "crisp_bright_energetic",
+    "saturation": 0.85,
+    "contrast": 1.4,
+    "grain": false,
+    "vignette_strength": 0.1,
+    "lens_flare": true,
+    "prismatic_effects": true
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 88,
+    "subtitle_size": 36,
+    "caption_size": 26,
+    "title_color": "#ffffff",
+    "caption_color": "#f0f0f0",
+    "title_animation": "scaleIn_with_glow",
+    "title_position": { "x": "center", "y": 0.2 }
+  },
+  "composition": {
+    "style": "cinematic_wide",
+    "letterbox_height": "decreases_40_to_0",
+    "background_mode": "blurred_video",
+    "blur_amount": "decreases_10_to_0",
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 500 },
+    "camera_motion": "smooth_forward_dolly_reveal",
+    "logo_reveal": {
+      "time": 22.0,
+      "animation": "fadeIn_scale",
+      "duration": 4.0,
+      "position": { "x": 0.5, "y": 0.5 }
+    },
+    "ending_tableau": {
+      "time": 26.0,
+      "elements": ["logo", "cta_text", "fade_out"],
+      "cta_text": "Building Tomorrow"
+    }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_bright" },
+      { "time": 3.0, "beat": "pager_watch_call_back", "action": "nostalgic_flicker" },
+      { "time": 8.0, "beat": "rebuilt_myself", "action": "rising_energy_swell" },
+      { "time": 14.0, "beat": "built_tomorrownow", "action": "company_name_reveal" },
+      { "time": 20.0, "beat": "four_saas_pilots", "action": "panel_layout_show" },
+      { "time": 26.0, "beat": "from_rock_bottom_to_tomorrow", "action": "full_resolution_hold" }
+    ],
+    "music_volume": "peak_0.35_hold",
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 8.0, "type": "rising_swell_upbeat", "volume": 0.1 },
+      { "time": 14.0, "type": "logo_reveal_chime", "volume": 0.12 },
+      { "time": 26.0, "type": "final_orchestral_resolve", "volume": 0.15 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "VIII", "opacity": 0.2, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 4, "color": "#ffd700", "position": "bottom" },
+    "cta": {
+      "time": 26.0,
+      "text": "Building Tomorrow",
+      "font": "Georgia, serif",
+      "size": 48,
+      "color": "#ffd700",
+      "position": { "x": 0.5, "y": 0.65 },
+      "animation": "fadeIn_scale_center"
+    }
+  },
+  "scene_transitions": [
+    { "type": "glow_dissolve", "duration": 2.0, "easing": "easeInOut" }
+  ]
+}

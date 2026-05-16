@@ -1,1 +1,65 @@
-{'module': 4}
+{
+  "module": 4,
+  "title": "STONE AGE IN A DIGITAL WORLD",
+  "timeline_seconds": 26,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#1c1c1c", "#3d3d3d", "#555555", "#00b4d8"],
+    "mood": "disoriented_alienated",
+    "temperature": "cold",
+    "saturation": 0.3,
+    "contrast": 1.5,
+    "grain": true,
+    "vignette_strength": 0.6,
+    "chromatic_aberration": 0.02
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 72,
+    "subtitle_size": 30,
+    "caption_size": 22,
+    "title_color": "#a0a0a0",
+    "caption_color": "#888888",
+    "title_animation": "fadeIn_distort",
+    "title_position": { "x": "center", "y": 0.22 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": 85,
+    "background_mode": "blurred_video",
+    "blur_amount": 25,
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 250 },
+    "camera_motion": "handheld_shaky",
+    "split_screen": {
+      "enabled": true,
+      "left_style": "sepia_primitive",
+      "right_style": "neon_digital",
+      "divider_position": 0.4
+    }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title" },
+      { "time": 4.0, "beat": "overwhelming_admitted", "action": "screen_split_appears" },
+      { "time": 12.0, "beat": "no_skills_survive", "action": "digital_data_rain_overlay" },
+      { "time": 20.0, "beat": "stone_age_revealed", "action": "primitive_to_digital_zoom" },
+      { "time": 25.0, "beat": "module_end", "action": "fade_to_black" }
+    ],
+    "music_volume": 0.12,
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 4.0, "type": "whoosh_unease", "volume": 0.06 },
+      { "time": 12.0, "type": "data_static", "volume": 0.04 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "IV", "opacity": 0.3, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#555555", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "split_wipe", "duration": 1.0, "easing": "easeInOut" },
+    { "type": "crossfade", "duration": 1.5, "easing": "easeInOut" }
+  ]
+}

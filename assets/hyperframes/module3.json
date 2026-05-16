@@ -1,1 +1,59 @@
-{'module': 3}
+{
+  "module": 3,
+  "title": "ARRIVAL IN 2018",
+  "timeline_seconds": 24,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#0a0a0a", "#1b4332", "#40916c", "#d4e09b"],
+    "mood": "overwhelming_transition",
+    "temperature": "warm_to_crisp",
+    "saturation": 0.7,
+    "contrast": 1.3,
+    "grain": false,
+    "vignette_strength": 0.2,
+    "brightness_shift": 0.4
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 78,
+    "subtitle_size": 32,
+    "caption_size": 24,
+    "title_color": "#e0f2e9",
+    "caption_color": "#e0e0e0",
+    "title_animation": "scaleIn_pulse",
+    "title_position": { "x": "center", "y": 0.2 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": 70,
+    "background_mode": "blurred_video",
+    "blur_amount": 12,
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 400 },
+    "camera_motion": "rapid_zoom_settle"
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title" },
+      { "time": 2.5, "beat": "overwhelmed_admitted", "action": "digital_glitch_intro" },
+      { "time": 8.0, "beat": "analog_to_digital", "action": "crt_to_lcd_transition" },
+      { "time": 15.0, "beat": "pager_watch_mentioned", "action": "retro_scanlines" },
+      { "time": 23.0, "beat": "module_end", "action": "fade_to_dark" }
+    ],
+    "music_volume": 0.2,
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 2.5, "type": "digital_glitch_static", "volume": 0.08 },
+      { "time": 15.0, "type": "retro_bleep", "volume": 0.06 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "III", "opacity": 0.3, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#40916c", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "glitch_wipe", "duration": 0.8, "easing": "easeOut" },
+    { "type": "crossfade", "duration": 1.0, "easing": "easeInOut" }
+  ]
+}

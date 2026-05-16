@@ -1,1 +1,64 @@
-{'module': 5}
+{
+  "module": 5,
+  "title": "ROCK BOTTOM",
+  "timeline_seconds": 35,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#000000", "#1a1a1a", "#2d0a0a", "#4a0e0e"],
+    "mood": "darkest_despair",
+    "temperature": "extremely_cold",
+    "saturation": 0.15,
+    "contrast": 1.6,
+    "grain": true,
+    "vignette_strength": 0.7,
+    "desaturation_curve": 0.8,
+    "shadow_detail": "crushed"
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 68,
+    "subtitle_size": 28,
+    "caption_size": 20,
+    "title_color": "#8a7070",
+    "caption_color": "#666666",
+    "title_animation": "fadeIn_verySlow",
+    "title_position": { "x": "center", "y": 0.3 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": 100,
+    "background_mode": "blurred_video",
+    "blur_amount": 30,
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 200 },
+    "camera_motion": "static_no_movement",
+    "frame_rate_effect": "subtle_slow_motion_24fps"
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title_slow" },
+      { "time": 5.0, "beat": "drowning_despair", "action": "darken_overlay" },
+      { "time": 15.0, "beat": "shame_cannot_feed", "action": "heartbeat_pulse_visual" },
+      { "time": 25.0, "beat": "thoughts_of_returning", "action": "flash_memory_effect" },
+      { "time": 30.0, "beat": "no_one_to_turn_to", "action": "complete_darkness_hold" },
+      { "time": 34.0, "beat": "module_end", "action": "fade_to_total_black" }
+    ],
+    "music_volume": 0.08,
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 15.0, "type": "sub_bass_pulse", "volume": 0.06 },
+      { "time": 25.0, "type": "distant_echo", "volume": 0.03 },
+      { "time": 30.0, "type": "silence_drop", "volume": 0.0 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "V", "opacity": 0.15, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#4a0e0e", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "fade_to_black", "duration": 2.0, "easing": "easeInOut" },
+    { "type": "hold_black", "duration": 0.5 },
+    { "type": "crossfade", "duration": 2.0, "easing": "easeInOut" }
+  ]
+}

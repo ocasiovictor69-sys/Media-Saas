@@ -1,1 +1,60 @@
-{'module': 2}
+{
+  "module": 2,
+  "title": "THE PRISON TIME MACHINE",
+  "timeline_seconds": 28,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#0d0d0d", "#2d2d2d", "#4a4a4a", "#8b7355"],
+    "mood": "surreal_timeless",
+    "temperature": "cool_to_warm",
+    "saturation": 0.4,
+    "contrast": 1.4,
+    "grain": true,
+    "vignette_strength": 0.5,
+    "film_grain_intensity": 0.3
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 84,
+    "subtitle_size": 34,
+    "caption_size": 24,
+    "title_color": "#c0b090",
+    "caption_color": "#b0b0b0",
+    "title_animation": "slideInLeft",
+    "title_position": { "x": "center", "y": 0.25 }
+  },
+  "composition": {
+    "style": "cinematic_letterbox",
+    "letterbox_height": 90,
+    "background_mode": "blurred_video",
+    "blur_amount": 15,
+    "focus_zone": { "x": 0.5, "y": 0.45, "radius": 350 },
+    "camera_motion": "slow_dolly_forward"
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title" },
+      { "time": 2.0, "beat": "crazy_1993", "action": "time_lapse_effect" },
+      { "time": 10.0, "beat": "evolution_passing", "action": "horizontal_scroll_panels" },
+      { "time": 16.0, "beat": "obama_mentioned", "action": "flash_white" },
+      { "time": 20.0, "beat": "trump_mentioned", "action": "flash_white" },
+      { "time": 27.0, "beat": "module_end", "action": "fade_to_black" }
+    ],
+    "music_volume": 0.18,
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 2.0, "type": "clock_tick_echo", "volume": 0.08 },
+      { "time": 16.0, "type": "camera_flash", "volume": 0.06 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "II", "opacity": 0.3, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#8b7355", "position": "bottom" }
+  },
+  "scene_transitions": [
+    { "type": "time_wipe", "duration": 1.0, "easing": "easeOut" },
+    { "type": "crossfade", "duration": 1.2, "easing": "easeInOut" }
+  ]
+}

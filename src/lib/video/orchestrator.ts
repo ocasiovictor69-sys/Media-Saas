@@ -2,7 +2,6 @@ import { validateAssets } from "./asset-validator";
 import { logStep } from "./logger";
 
 // Placeholder imports for the build steps
-// In a real production environment, these would be separate modules
 async function buildRemotionProject() {
   logStep("Simulating Remotion Build...");
   return Promise.resolve();
@@ -36,7 +35,7 @@ export async function buildFilm() {
   logStep("RUNNING FFMPEG FINAL ENCODING");
   await runFFmpegFinalPass();
 
-  logStep("🎬 FILM COMPLETE: Master_TomorrowNow_Video.mp4");
+  logStep("FILM COMPLETE: Master_TomorrowNow_Video.mp4");
 }
 
 export class VideoOrchestrator {
