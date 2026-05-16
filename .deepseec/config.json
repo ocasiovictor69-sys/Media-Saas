@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "engine": "Hermes-Deterministic-Scanner",
+  "rules": [
+    "audit",
+    "secrets",
+    "zod-validation",
+    "silo-purity"
+  ]
+}
