@@ -1,41 +1,69 @@
 import { validateAssets } from "./asset-validator";
 import { logStep } from "./logger";
+import { bundle } from '@remotion/bundler';
+import { renderMedia, selectComposition } from '@remotion/renderer';
+import path from 'path';
+import fs from 'fs';
 
-// Placeholder imports for the build steps
-async function buildRemotionProject() {
-  logStep("Simulating Remotion Build...");
-  return Promise.resolve();
-}
-
-async function renderRemotion() {
-  logStep("Simulating Remotion Rendering...");
-  return Promise.resolve();
-}
-
-async function runFFmpegFinalPass() {
-  logStep("Simulating FFmpeg Final Encoding...");
-  return Promise.resolve();
-}
-
-export async function buildFilm() {
-  logStep("STARTING TOMORROWNOW AI FILM ENGINE");
+export async function buildFilm(asset_id: string, metadata: any) {
+  logStep("STARTING TOMORROWNOW AI PROGRAMMATIC REMOTION ENGINE");
 
   // 1. HARD VALIDATION GATE
   validateAssets();
 
-  // 2. REMOTION BUILD
-  logStep("BUILDING REMOTION TIMELINE");
-  await buildRemotionProject();
+  // 2. PATH DEFINITIONS
+  const entryPoint = path.resolve('./src/remotion/index.ts');
+  const outputLocation = path.resolve(`./assets/output/${asset_id}.mp4`);
 
-  // 3. RENDER VIDEO
-  logStep("RENDERING REMOTION OUTPUT");
-  await renderRemotion();
+  // Ensure output directory exists
+  const outputDir = path.dirname(outputLocation);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
 
-  // 4. FINAL ENCODE PASS
-  logStep("RUNNING FFMPEG FINAL ENCODING");
-  await runFFmpegFinalPass();
+  // 3. REMOTION BUNDLE
+  logStep("COMPILING & BUNDLING REMOTION TIMELINE...");
+  const bundleLocation = await bundle({
+    entryPoint,
+  });
+  logStep(`Bundle created successfully at: ${bundleLocation}`);
 
-  logStep("FILM COMPLETE: Master_TomorrowNow_Video.mp4");
+  // Local Chrome detection to bypass downloading headless shells
+  const browserExecutable = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+  const hasLocalChrome = fs.existsSync(browserExecutable);
+  if (hasLocalChrome) {
+    logStep(`Detected local Google Chrome at: ${browserExecutable}`);
+  }
+
+  // 4. SELECT COMPOSITION
+  logStep("SELECTING COMPOSITION 'MediaComposite'...");
+  const compositionId = 'MediaComposite';
+  const inputProps = {
+    title: metadata.title || "The World I Left",
+    narrator: metadata.narrator || "Victor Ocasio",
+  };
+
+  const composition = await selectComposition({
+    serveUrl: bundleLocation,
+    id: compositionId,
+    inputProps,
+    browserExecutable: hasLocalChrome ? browserExecutable : undefined,
+  });
+  logStep(`Composition selected: ${composition.id} (FPS: ${composition.fps}, Duration: ${composition.durationInFrames} frames)`);
+
+  // 5. RENDER MEDIA
+  logStep("RENDERING REMOTION OUTPUT TO MP4...");
+  await renderMedia({
+    composition,
+    serveUrl: bundleLocation,
+    codec: 'h264',
+    outputLocation,
+    inputProps,
+    browserExecutable: hasLocalChrome ? browserExecutable : undefined,
+  });
+
+  logStep(`FILM RENDER COMPLETE: ${outputLocation}`);
+  return outputLocation;
 }
 
 export class VideoOrchestrator {
@@ -43,20 +71,23 @@ export class VideoOrchestrator {
     logStep(`Initiating production for: ${asset_id}`);
     
     try {
-      await buildFilm();
+      const outputFilePath = await buildFilm(asset_id, metadata);
       return {
         success: true,
         id: asset_id,
         status: 'COMPLETE',
+        output_url: outputFilePath,
         timestamp: new Date().toISOString()
       };
     } catch (error) {
       console.error("Film build failed:", error);
       return {
         success: false,
-        error: "Pipeline failure",
+        error: error instanceof Error ? error.message : "Pipeline failure",
         timestamp: new Date().toISOString()
       };
     }
   }
 }
+
+
