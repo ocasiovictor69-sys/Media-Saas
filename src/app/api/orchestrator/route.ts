@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import { createAdminClient } from '../../../lib/supabase/admin'
-import { AgentScriptGen } from '../../../lib/agents/agent-script-gen'
-import { AgentRenderOrchestrator } from '../../../lib/agents/agent-render'
-import { AgentDistributor } from '../../../lib/agents/agent-distribute'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { AgentScriptGen } from '@/lib/agents/agent-script-gen'
+import { AgentRenderOrchestrator } from '@/lib/agents/agent-render'
+import { AgentDistributor } from '@/lib/agents/agent-distribute'
 
 export async function POST(request: Request) {
   try {

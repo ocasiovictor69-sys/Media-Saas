@@ -1,4 +1,4 @@
-import { VideoOrchestrator } from './src/lib/video/orchestrator.ts';
+import { VideoOrchestrator } from '../src/lib/video/orchestrator';
 import fs from 'fs';
 
 async function run() {

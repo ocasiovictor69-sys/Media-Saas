@@ -1,0 +1,73 @@
+{
+  "module": 9,
+  "title": "EPILOGUE: THE REFLECTION",
+  "timeline_seconds": 20,
+  "fps": 30,
+  "resolution": { "width": 1920, "height": 1080 },
+  "color_grading": {
+    "palette": ["#000428", "#004e92", "#ffffff", "#ffd700", "#e8d5b7"],
+    "mood": "reflective_wisdom_closure",
+    "temperature": "warm_golden_hour",
+    "saturation": "dynamic_0.85_to_0.6",
+    "contrast": 1.2,
+    "grain": "subtle_film_grain_0.1",
+    "vignette_strength": "increases_0.1_to_0.3",
+    "fade_to_white": true
+  },
+  "typography": {
+    "title_font": "Georgia, serif",
+    "body_font": "system-ui, sans-serif",
+    "title_size": 64,
+    "subtitle_size": 28,
+    "caption_size": 22,
+    "title_color": "#ffffff",
+    "caption_color": "#d4c5a9",
+    "title_animation": "fadeIn_reflective",
+    "title_position": { "x": "center", "y": 0.3 }
+  },
+  "composition": {
+    "style": "cinematic_wide",
+    "letterbox_height": "increases_20_to_80",
+    "background_mode": "blurred_dawn_sky",
+    "blur_amount": "increases_5_to_25",
+    "focus_zone": { "x": 0.5, "y": 0.5, "radius": 500 },
+    "camera_motion": "slow_pull_back_reveal",
+    "ending_sequence": {
+      "time": 12.0,
+      "action": "fade_to_white_hold",
+      "duration": 5.0
+    }
+  },
+  "audio_sync": {
+    "cue_points": [
+      { "time": 0.0, "beat": "narration_start", "action": "fade_in_quiet" },
+      { "time": 6.0, "beat": "catalog_of_failures", "action": "soft_underscore" },
+      { "time": 12.0, "beat": "profound_perseverance", "action": "resolve_hold" },
+      { "time": 18.0, "beat": "fade_complete", "action": "silence" }
+    ],
+    "music_volume": "peak_resolve_hold_0.3_to_0.15",
+    "voiceover_volume": 1.0,
+    "sound_effects": [
+      { "time": 6.0, "type": "soft_strings", "volume": 0.08 },
+      { "time": 12.0, "type": "emotional_resolve_chord", "volume": 0.1 },
+      { "time": 18.0, "type": "fade_silence", "volume": 0.0 }
+    ]
+  },
+  "overlays": {
+    "module_badge": { "text": "IX", "opacity": 0.2, "position": { "x": 0.02, "y": 0.02 } },
+    "progress_bar": { "height": 3, "color": "#ffd700", "position": "bottom" },
+    "end_credit_card": {
+      "time": 14.0,
+      "text": "TomorrowNow AI",
+      "subtext": "Building Tomorrow",
+      "font": "Georgia, serif",
+      "size": 36,
+      "color": "#ffd700",
+      "position": { "x": 0.5, "y": 0.5 },
+      "animation": "fadeIn_scale_center"
+    }
+  },
+  "scene_transitions": [
+    { "type": "fade_to_white", "duration": 3.0, "easing": "easeInOut" }
+  ]
+}

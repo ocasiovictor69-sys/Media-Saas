@@ -36,6 +36,7 @@ fs.readlinkSync = function (path, options) {
 const nextConfig: NextConfig = {
   output: 'standalone',
   webpack(config) {
+    config.resolve.symlinks = false
     return config
   },
 }

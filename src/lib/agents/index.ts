@@ -1,7 +1,9 @@
 // src/lib/agents/index.ts
 export * from './types'
 export * from './base'
-export * from './agent-verify'
-export * from './agent-sourcing'
-export * from './agent-outreach'
-export * from './agent-deal'
+export * from './agent-account-sync'
+export * from './agent-distribute'
+export * from './agent-distribution'
+export * from './agent-render'
+export * from './agent-script-gen'
+export * from './agent-splicing'
