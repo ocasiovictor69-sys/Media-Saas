@@ -2,19 +2,18 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 
-// CSV Row Zod Schema
-const leadImportSchema = z.object({
-  seller_name: z.string().min(1, 'Seller name is required'),
-  seller_email: z.string().email('Invalid email').optional().or(z.literal('')),
-  seller_phone: z.string().optional().or(z.literal('')),
-  property_address: z.string().min(5, 'Address is required'),
-  property_zip: z.string().optional().or(z.literal('')),
-  property_type: z.enum(['single_family', 'duplex', 'triplex', 'fourplex', 'commercial']).optional().or(z.literal('')),
-  seller_category: z.string().optional().or(z.literal('')),
-  pipeline: z.enum(['1', '2']).default('1'),
+// CSV Row Zod Schema - Media-Specific
+const mediaLeadSchema = z.object({
+  client_name: z.string().min(1, 'Client name is required'),
+  client_email: z.string().email('Invalid email').optional().or(z.literal('')),
+  client_phone: z.string().optional().or(z.literal('')),
+  project_title: z.string().min(3, 'Project title is required'),
+  media_type: z.enum(['VIDEO', 'AUDIO', 'IMAGE', 'SCRIPT']).optional().or(z.literal('')).default('VIDEO'),
+  platform: z.enum(['YOUTUBE', 'TIKTOK', 'INSTAGRAM', 'TWITTER', 'MULTI']).optional().or(z.literal('')).default('MULTI'),
+  notes: z.string().max(5000).optional().or(z.literal('')),
 })
 
-const batchImportSchema = z.array(leadImportSchema)
+const batchImportSchema = z.array(mediaLeadSchema)
 
 export async function POST(request: Request) {
   try {
@@ -49,10 +48,16 @@ export async function POST(request: Request) {
     }
 
     const validLeads = validationResult.data.map(lead => ({
-      ...lead,
       team_id: profile.team_id,
       owner_id: user.id,
       stage: 'NEW',
+      client_name: lead.client_name,
+      client_email: lead.client_email,
+      client_phone: lead.client_phone || null,
+      media_type: lead.media_type,
+      platform: lead.platform,
+      project_title: lead.project_title,
+      notes: lead.notes || null,
     }))
 
     // Bulk insert into Supabase

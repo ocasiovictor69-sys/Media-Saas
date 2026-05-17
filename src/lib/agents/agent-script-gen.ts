@@ -1,3 +1,4 @@
+import { SupabaseClient } from '@supabase/supabase-js'
 import { AgentRunner } from './base'
 import type { AgentInput, AgentResult, ScriptResult } from './types'
 import Anthropic from '@anthropic-ai/sdk'
@@ -5,7 +6,7 @@ import Anthropic from '@anthropic-ai/sdk'
 export class AgentScriptGen extends AgentRunner {
   private anthropic: Anthropic
 
-  constructor(supabase: any) {
+  constructor(supabase: SupabaseClient) {
     super(supabase)
     this.anthropic = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY || ''
