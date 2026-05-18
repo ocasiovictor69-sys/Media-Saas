@@ -6,7 +6,7 @@ async function run() {
   const result = await orchestrator.initiate('TN_FILM_001', {
     title: "The World I Left",
     narrator: "Victor Ocasio",
-    modules: 8
+    modules: 7
   });
   
   console.log('--- PRODUCTION RESULT ---');
