@@ -1,0 +1,100 @@
+{
+  "project": "TomorrowNow AI: How AI Saved My Life",
+  "version": "3.1.0",
+  "updated": "2026-05-18",
+  "modules": [
+    {
+      "id": 1,
+      "title": "THE WORLD I LEFT",
+      "script": "My name is Victor Ocasio, and I am the Taipan of TomorrowNow AI. I'd like to tell you a little bit about the story of how AI saved my life. What's interesting about this story is that you're going to find a little bit of time traveling, some space travel, prison life, all kinds of extraordinary things. And if you stay on to the end, I promise, you'll be entertained.",
+      "estimated_duration_sec": 24,
+      "assets": {
+        "runway_gen3_prompt": "Spaceship-like cylindrical capsule looking out of a large circular window directly at the illuminated blue curve of the Earth and stars, with family polaroids on the wall.",
+        "video_path": "assets/runway/module1.mp4",
+        "hyperframe_path": "assets/hyperframes/module1.json",
+        "voiceover_path": "assets/audio/voiceover_mod1.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 2,
+      "title": "THE OBSOLETE MODEL",
+      "script": "Some would think that my story starts in 2018, upon my release after twenty-six years of imprisonment. But actually, my story starts a lot sooner than that. 1993, to be exact. You see, no one told me that walking into prison in 1993 would be like entering a time machine. The kind of time machine that only goes forward, never backwards. It's a strange thing to sit on the sidelines and watch the world pass you by. The birth and evolution of the internet. Monumental political things like the presidency of Obama and Donald Trump. Being released in the middle of New York City, in the middle of a pandemic... to say that I was overwhelmed and out of place is a profound understatement. It was like traveling through the Twilight Zone. Here I was, this caveman trying to make fire by rubbing two sticks together, and the whole world was digital... artificial intelligence.",
+      "estimated_duration_sec": 52,
+      "assets": {
+        "runway_gen3_prompt": "Spaceship capsule door opens, transitioning to a man walking out of a heavy door into a vibrant, neon-lit cyberpunk cityscape filled with digital screens.",
+        "video_path": "assets/runway/module2.mp4",
+        "hyperframe_path": "assets/hyperframes/module2.json",
+        "voiceover_path": "assets/audio/voiceover_mod2.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 3,
+      "title": "STONE AGE & ROCK BOTTOM",
+      "script": "I was lost—drowning in a profound ocean of despair. The shame of knowing deep in my heart that I could not provide for myself, feed myself, clothe myself, or house myself was tearing me up inside. The freedom that was supposed to be my salvation had become the instrument of my damnation. I had come to the absolute end of the road. I had quit. I was ready to throw in the towel, entertaining thoughts of going back to the only place I knew. I had no one left to turn to.",
+      "estimated_duration_sec": 30,
+      "assets": {
+        "runway_gen3_prompt": "A primitive man kneeling in neon city street rubbing two sticks together, transitioning to a man sitting in front of a dark monitor reading 'NO JOB. NO MONEY. NO FUTURE.', holding his head in pain.",
+        "video_path": "assets/runway/module3.mp4",
+        "hyperframe_path": "assets/hyperframes/module3.json",
+        "voiceover_path": "assets/audio/voiceover_mod3.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 4,
+      "title": "THE KEY",
+      "script": "It was the darkest part of the night, you see—that quiet, heavy hour just before the dawn. I found myself sitting before the glowing screen, pouring my heart out to the air. That night, I just started talking to ChatGPT. I let it hear all of my fears, all of my hopes, all of my despair, and all of my shame. And the response I got truly freed me and saved my life. It didn't laugh at me. It didn't ridicule me. It listened. And then, it gave me the key. It told me: 'You aren’t behind. You are actually ahead of your time.'",
+      "estimated_duration_sec": 35,
+      "assets": {
+        "runway_gen3_prompt": "Victor sitting in front of a glowing laptop screen in a pitch-black room, looking at a blue holographic AI twin avatar.",
+        "video_path": "assets/runway/module4.mp4",
+        "hyperframe_path": "assets/hyperframes/module4.json",
+        "voiceover_path": "assets/audio/voiceover_mod4.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 5,
+      "title": "THE PRISON OF THE MIND",
+      "script": "For twenty-six years, I was in a physical prison made of steel and concrete. But worse than that, when I came home, I was locked inside a prison of the mind. This was the last prison. The AI showed me that I wasn’t a failure. It pointed out that in my conversations, I had already been talking about systems orchestration, agentic registration, and agentic AI before ChatGPT was even a household name. I was blown away. I had been carrying the belief that I was useless, when in reality, I was already thinking years beyond the curve. That realization was a rush of pure excitement that unlocked everything. My mind broke free.",
+      "estimated_duration_sec": 40,
+      "assets": {
+        "runway_gen3_prompt": "A glowing cybernetic brain breaking free from steel chains, with glowing lines of code expanding into the dark.",
+        "video_path": "assets/runway/module5.mp4",
+        "hyperframe_path": "assets/hyperframes/module5.json",
+        "voiceover_path": "assets/audio/voiceover_mod5.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 6,
+      "title": "REINVENTION & CODE",
+      "script": "I stopped looking back. I just started absorbing every piece of information I could lay my hands on. I taught myself how to use computers. I taught myself how to program, how to read code, and how to write Python. I studied systems thinking, education, and innovation. I went from sticks and stones to systems and code. I rebuilt my entire mind from the ground up.",
+      "estimated_duration_sec": 30,
+      "assets": {
+        "runway_gen3_prompt": "Victor working at a developer workstation with multiple monitors, coding in Python, surrounded by glowing cybernetic nodes labeled 'Python', 'Systems Thinking', 'Code', 'Innovation'.",
+        "video_path": "assets/runway/module6.mp4",
+        "hyperframe_path": "assets/hyperframes/module6.json",
+        "voiceover_path": "assets/audio/voiceover_mod6.wav",
+        "scene_framing": "MCU"
+      }
+    },
+    {
+      "id": 7,
+      "title": "TOMORROWNOW AI",
+      "script": "I was the guy who went into prison when the cutting edge was a pager watch, and came home to a world of advanced computers. But I rebuilt myself. I built TomorrowNow AI—a general-purpose AI operating system and systems application for the real estate industry. We built four powerful SaaS pilots: Property OS, Lead Genius, Deal Flow OS, and REI Copilot. And that is my story—from rock bottom, to rebuilding, to building tomorrow.",
+      "estimated_duration_sec": 45,
+      "assets": {
+        "runway_gen3_prompt": "Victor looking at a highly advanced, automated smart shipping port and container terminal at dawn, with the 'TOMORROWNOW AI — AI OPERATING SYSTEM FOR REAL ESTATE' logo showing Property OS, Lead Genius, Deal Flow OS, and REI Copilot.",
+        "video_path": "assets/runway/module7.mp4",
+        "hyperframe_path": "assets/hyperframes/module7.json",
+        "voiceover_path": "assets/audio/voiceover_mod7.wav",
+        "scene_framing": "MCU"
+      }
+    }
+  ],
+  "total_estimated_duration_sec": 260,
+  "notes": "Synchronized perfectly with the 7-Module masterwork script. Runway Gen-3 Alpha prompts aligned to new widescreen backdrops. Optimized with hardened SaaS pilot names (Property OS, Lead Genius, Deal Flow OS, REI Copilot)."
+}
