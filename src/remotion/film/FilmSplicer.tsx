@@ -1,99 +1,129 @@
 /**
- * FilmSplicer.tsx -- Full 7-module widescreen cinematic composition for
- * "How AI Saved My Life" (TomorrowNow AI Parent Brand)
+ * FilmSplicer.tsx -- Full 7-module widescreen cinematic composition.
+ * Sequentially renders each Runway B-roll with letterbox bars and overlays.
  *
- * Layers per module:
- *   1. Runway Gen-4.5 B-roll backdrop (full-frame)
- *   2. Cinematic letterbox bars
- *   3. Module badge (Roman numeral)
- *   4. Progress bar along bottom edge
- *   5. Crossfade transitions between modules
- *
- * Total estimated duration: ~256 seconds (4min 16sec) at 30fps
+ * Video paths: runway/moduleN.mp4 (served from public/ via staticFile)
  */
 import React from 'react';
-import {
-  AbsoluteFill,
-  Sequence,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from 'remotion';
-import { ModuleSequence } from './ModuleSequence';
-import { CrossfadeTransition } from './Transitions';
-import { HUDOverlays } from './HUDOverlays';
-import timeline from '../../timeline/story.timeline.json';
+import { AbsoluteFill, Sequence, useCurrentFrame } from 'remotion';
+import { ModuleClip } from './ModuleClip';
 
 export const WIDTH = 1920;
 export const HEIGHT = 1080;
 export const FPS = 30;
 
-// Derive module timeline data
 interface ModuleInfo {
   id: number;
   title: string;
+  durationSec: number;
   durationFrames: number;
   startFrame: number;
-  videoPath: string;
+  // Path relative to public/ directory for staticFile()
+  videoRelPath: string;
 }
 
-export const modules: ModuleInfo[] = timeline.modules.map((m: any, idx: number) => {
-  const prevFrames = timeline.modules
+const moduleData: { title: string; seconds: number }[] = [
+  { title: 'THE WORLD I LEFT', seconds: 24 },
+  { title: 'THE OBSOLETE MODEL', seconds: 52 },
+  { title: 'STONE AGE & ROCK BOTTOM', seconds: 30 },
+  { title: 'THE KEY', seconds: 35 },
+  { title: 'THE PRISON OF THE MIND', seconds: 40 },
+  { title: 'REINVENTION & CODE', seconds: 30 },
+  { title: 'TOMORROWNOW AI', seconds: 45 },
+];
+
+export const modules: ModuleInfo[] = moduleData.map((d, idx) => {
+  const startFrame = moduleData
     .slice(0, idx)
-    .reduce((sum: number, pm: any) => sum + pm.estimated_duration_sec * FPS, 0);
+    .reduce((s, m) => s + m.seconds * FPS, 0);
   return {
-    id: m.id,
-    title: m.title,
-    durationFrames: Math.ceil(m.estimated_duration_sec * FPS),
-    startFrame: prevFrames,
-    videoPath: m.assets.video_path,
+    id: idx + 1,
+    title: d.title,
+    durationSec: d.seconds,
+    durationFrames: d.seconds * FPS,
+    startFrame,
+    videoRelPath: `runway/module${idx + 1}.mp4`,
   };
 });
 
-const totalFrames = modules.reduce((sum, m) => sum + m.durationFrames, 0);
-const TRANSITION_DURATION = Math.ceil(1.5 * FPS); // 1.5sec crossfade
+const totalFrames = modules.reduce((s, m) => s + m.durationFrames, 0);
 
 export const FilmSplicer: React.FC = () => {
-  const frame = useCurrentFrame();
-
   return (
     <AbsoluteFill style={{ background: '#000' }}>
-      {modules.map((mod, idx) => {
-        const isLast = idx === modules.length - 1;
-        const nextDur = !isLast ? TRANSITION_DURATION : 0;
-
-        return (
-          <Sequence
-            key={mod.id}
-            name={mod.title}
-            from={mod.startFrame}
-            durationInFrames={mod.durationFrames + nextDur}
-          >
-            <CrossfadeTransition
-              fadeOut={!isLast}
-              fadeIn={idx > 0}
-              transitionDuration={TRANSITION_DURATION}
-            >
-              <ModuleSequence
-                module={mod}
-                moduleIndex={idx + 1}
-                totalModules={modules.length}
-              />
-            </CrossfadeTransition>
-
-            {/* HUD overlays on top of each module */}
-            <HUDOverlays
-              moduleIndex={idx + 1}
-              totalModules={modules.length}
-              moduleStartFrame={mod.startFrame}
-              moduleDuration={mod.durationFrames}
-            />
-          </Sequence>
-        );
-      })}
+      {modules.map((mod, idx) => (
+        <Sequence
+          key={mod.id}
+          name={mod.title}
+          from={mod.startFrame}
+          durationInFrames={mod.durationFrames}
+        >
+          <ModuleClip module={mod} moduleIndex={idx + 1} />
+        </Sequence>
+      ))}
+      <GlobalProgressHUD totalModules={modules.length} />
     </AbsoluteFill>
   );
 };
 
 export const totalDurationFrames = totalFrames;
+
+/* ---------- Global Progress HUD ---------- */
+
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+
+const GlobalProgressHUD: React.FC<{ totalModules: number }> = ({ totalModules }) => {
+  const frame = useCurrentFrame();
+
+  // Find currently active module
+  let activeIdx = modules.length - 1;
+  for (let i = modules.length - 1; i >= 0; i--) {
+    if (frame >= modules[i].startFrame) {
+      activeIdx = i;
+      break;
+    }
+  }
+  const modIndex = activeIdx + 1;
+
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none' }}>
+      {/* Module badge top-left */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 16,
+          left: 24,
+          fontFamily: 'Georgia, serif',
+          fontSize: 24,
+          fontWeight: 700,
+          color: '#e94560',
+          opacity: 0.45,
+          zIndex: 100,
+        }}
+      >
+        {romanNumerals[modIndex - 1] || modIndex}
+      </div>
+
+      {/* Progress bar */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          height: 3,
+          background: 'rgba(255,255,255,0.06)',
+          zIndex: 100,
+        }}
+      >
+        <div
+          style={{
+            width: `${(modIndex / totalModules) * 100}%`,
+            height: '100%',
+            background: '#e94560',
+          }}
+        />
+      </div>
+    </AbsoluteFill>
+  );
+};

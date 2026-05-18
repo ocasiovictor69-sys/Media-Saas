@@ -27,7 +27,10 @@ async function run() {
 
   // Step 1: Bundle
   console.log('[1/4] Bundling Remotion composition...');
-  const bundleLocation = await bundle({ entryPoint });
+  const bundleLocation = await bundle({
+    entryPoint,
+    publicDir: path.resolve('./public'),
+  });
   console.log(`  Bundle: ${bundleLocation}\n`);
 
   // Step 2: Detect Chrome
