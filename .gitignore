@@ -45,3 +45,8 @@ next-env.d.ts
 
 # Deepseec cache
 .deepseec/
+
+# Media Assets (ignore large binaries to prevent HTTP 408 timeout on push)
+/assets/audio/
+/assets/avatar-video/
+/assets/runway/

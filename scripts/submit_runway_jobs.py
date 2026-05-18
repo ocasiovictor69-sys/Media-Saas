@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Runway Gen-3 Alpha Job Submission Script
-Submits 8 video generation jobs for "THE WORLD I LEFT" film.
+Submits 7 video generation jobs for the "How AI Saved My Life" film.
 """
 import json
 import os
@@ -9,7 +9,8 @@ import time
 import sys
 
 API_KEY = os.getenv("RUNWAY_API_KEY", "key_772780b2c4240137dd4484b07035299b227430232143d7559f62038a127d9f69812d35e2f72397a4252dce0059760401f55d2307e9f4dbc434fa2693b59e5276")
-BASE = "/mnt/d/TomorrowNow AI/Hermes_COO_Flow-Media/production/media-saas"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE = os.path.dirname(SCRIPT_DIR)
 TIMELINE = os.path.join(BASE, "timeline", "story.timeline.json")
 OUTPUT_DIR = os.path.join(BASE, "assets", "runway")
 QUEUE_LOG = os.path.join(BASE, "timeline", "runway_job_results.json")
@@ -24,52 +25,23 @@ HEADERS = {
 with open(TIMELINE) as f:
     timeline = json.load(f)
 
-# Read hyperframe configs
+# Read hyperframe configs for the 7 modules
 hyperframes = {}
-for i in range(1, 9):
+for i in range(1, 8):
     hf_path = os.path.join(BASE, "assets", "hyperframes", f"module{i}.json")
     with open(hf_path) as hf:
         hyperframes[i] = json.load(hf)
 
-# Module prompts mapped from timeline
-modules = {
-    m["id"]: m for m in timeline["modules"]
-}
-
-prompts = {
-    1: {
-        "text_prompt": "Cinematic slow-motion shot of a figure walking away from a dimly lit doorway, warm amber tones fading to cool blue. The transition suggests leaving one era behind and entering an unknown future. Film grain aesthetic, shallow depth of field. Symbolic representation of departure and reflection, dramatic lighting, 4k cinematic.",
-        "duration": 5,
-    },
-    2: {
-        "text_prompt": "Surreal cinematic visualization of time passing behind bars. Clock faces and calendar pages dissolving through prison bars, stark dramatic lighting, slow motion. Abstract representation of watching the world change from confined perspective. Monochrome with hints of color bleeding in from outside, moody cinematography.",
-        "duration": 5,
-    },
-    3: {
-        "text_prompt": "Cinematic transition from sepia-toned vintage technology to bright modern digital screens. Overwhelming visual shift from warm muted tones to crisp bright colors. Sense of wonder and disorientation, dramatic lighting, slow pan movement across a landscape of evolving technology.",
-        "duration": 5,
-    },
-    4: {
-        "text_prompt": "Cinematic split-screen metaphor: left side primitive stone textures and ancient tools, right side glowing digital data streams and modern technology. The contrast represents survival skills gap. Dramatic lighting from cold blue to warm amber. Slow camera movement bridging both worlds, moody and atmospheric.",
-        "duration": 5,
-    },
-    5: {
-        "text_prompt": "Dark atmospheric cinematic scene: solitary figure in complete shadow, minimal lighting, profound emotional depth. Slow camera movement through darkness, metaphorical representation of hitting absolute bottom. Deep shadows, almost no light, sense of isolation and despair, cinematic masterpiece.",
-        "duration": 5,
-    },
-    6: {
-        "text_prompt": "Cinematic sequence of dawn breaking through complete darkness. Screen with gentle blue glow, warm golden light emerging, conversation with AI visualized as flowing light particles connecting to a person. Emotional breakthrough moment, gradual transition from cold to warm tones, sense of connection and validation.",
-        "duration": 5,
-    },
-    7: {
-        "text_prompt": "Cinematic transformation sequence: physical prison bars dissolving into streams of digital light and data. Explosive moment of realization, dynamic camera movement, triumphant lighting. Metaphor for freeing the mind, transition from confinement to liberation. Visual representation of transformation from primitive to digital.",
-        "duration": 5,
-    },
-    8: {
-        "text_prompt": "Cinematic wide shot of futuristic cityscape at dawn, triumphant forward movement, rising architecture, bright sunrise breaking through. Triumphant resolution, forward momentum, epic scale, dramatic lighting. Metaphor for building a future from nothing, cinematic triumph.",
-        "duration": 5,
-    },
-}
+# Module prompts mapped dynamically from timeline
+modules = {}
+prompts = {}
+for m in timeline["modules"]:
+    module_id = m["id"]
+    modules[module_id] = m
+    prompts[module_id] = {
+        "text_prompt": m["assets"]["runway_gen3_prompt"],
+        "duration": 5, # Standard 5 second B-roll duration
+    }
 
 results = {"submitted_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "jobs": []}
 
@@ -77,7 +49,7 @@ print("=" * 70)
 print("RUNWAY GEN-3 ALPHA — JOB SUBMISSION")
 print("=" * 70)
 
-# Step 1: Submit all 8 jobs
+# Step 1: Submit all 7 jobs
 for module_id in sorted(prompts.keys()):
     module = modules[module_id]
     prompt_data = prompts[module_id]

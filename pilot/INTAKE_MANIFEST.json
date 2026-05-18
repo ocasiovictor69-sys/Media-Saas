@@ -1,0 +1,46 @@
+{
+  "pipeline": "FLOW_MEDIA_CLIENT_SPLICING",
+  "created": "2026-05-17T19:55:24.859183",
+  "status": "AWAITING_ASSETS",
+  "required_inputs": [
+    {
+      "type": "heygen_avatar",
+      "path": "heygen/",
+      "format": "mp4/mov",
+      "description": "Raw HeyGen avatar clip (green screen or pre-rendered with background)",
+      "status": "MISSING"
+    },
+    {
+      "type": "broll_assets",
+      "path": "broll/",
+      "format": "mp4/mov/png/jpg",
+      "description": "Screen recordings, product footage, or live-action B-roll",
+      "status": "MISSING"
+    },
+    {
+      "type": "watermark",
+      "path": "branding/watermarks/",
+      "format": "png/svg",
+      "description": "Corporate watermark or logo overlay",
+      "status": "MISSING"
+    },
+    {
+      "type": "reference_video",
+      "path": "reference/",
+      "format": "mp4/link",
+      "description": "Link to or file of example video showing desired style",
+      "status": "MISSING"
+    }
+  ],
+  "output_spec": {
+    "formats": [
+      "16x9_landscape",
+      "9x16_vertical"
+    ],
+    "codec": "h264",
+    "fps": 30,
+    "audio": "aac",
+    "captions": "word-by-word_srt_overlay",
+    "sound_ducking": true
+  }
+}
