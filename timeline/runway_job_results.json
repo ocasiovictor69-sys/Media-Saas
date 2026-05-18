@@ -1,0 +1,55 @@
+{
+  "submitted_at": "2026-05-18T18:36:34",
+  "model": "gen4.5",
+  "jobs": [
+    {
+      "module_id": 1,
+      "title": "THE WORLD I LEFT",
+      "job_id": "c6d544f4-71ae-40bf-bf82-4374a1c28e16",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/48d7847d-a24d-463a-96d2-68b81432f3dd.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNTgwMzI4OWMyMWIwNGQxMSIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTI2MTIxMn0.a-ipH0sJvpP8y2SLMFOkRi_nICCgXYGsadh04p4HevU"
+    },
+    {
+      "module_id": 2,
+      "title": "THE OBSOLETE MODEL",
+      "job_id": "85a69c1a-2e34-4f87-9765-df96623f0836",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/0769a822-f4c2-49ec-92f9-ded1185414e3.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYTUyM2ZmZjU0ZmIwMzkxZCIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTI0NjMyNX0.NaxuP_EltkpItdfEnIXRe2HrBRErpaDFr-dnR1Nx4cU"
+    },
+    {
+      "module_id": 3,
+      "title": "STONE AGE & ROCK BOTTOM",
+      "job_id": "95066ffa-18d8-4627-9019-85531984b15a",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/dc73799b-7284-4ac9-895f-d7ceccdc080d.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiZjJmNjZiNGJjZWI5YWMzMyIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTI5MTU5NX0.MGhsi0sqr4UfS0VDOa_mPcKk1grBc5voS1ioBEf8644"
+    },
+    {
+      "module_id": 4,
+      "title": "THE KEY",
+      "job_id": "cbc8a714-befd-42db-9e4b-217bb59adf88",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/b1ffe215-3bdb-4ecb-a642-70f88e1b21bd.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNmI3YjMzMDA5NTMyZTY0MyIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTMwMzI5Nn0.E8xVnyzsnsNbHcyfDFNGQS3s1go-iejSd8DKwTZxGFA"
+    },
+    {
+      "module_id": 5,
+      "title": "THE PRISON OF THE MIND",
+      "job_id": "1e94b034-8d75-4b98-b411-5e4fc5ab4934",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/24493bab-c4bd-41ba-a481-63cdfcfa5f3b.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjkxMjA2ODg1OGYxNWNmNCIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTI5MTQwMH0.JazzscZ4cP03q_IeI1as8qC6AKWQ5jEDbacBFy_lwho"
+    },
+    {
+      "module_id": 6,
+      "title": "REINVENTION & CODE",
+      "job_id": "1d8f23b8-5f2c-4dda-89fd-b73c93c78154",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/2494976d-8b31-43cf-983d-981c72f82c6d.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiZDRkOTU5ZjcxYmE0MTM0ZSIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTI1MDkzNX0.TXmDxrNc1nelSfbPJkSk8GmxVat5WOyUEyJhEBUjhes"
+    },
+    {
+      "module_id": 7,
+      "title": "TOMORROWNOW AI",
+      "job_id": "7155ae8b-370c-4610-8fa8-00973a03b452",
+      "status": "completed",
+      "video_url": "https://dnznrvs05pmza.cloudfront.net/208e642f-10a2-4828-b83e-98ee8ccde7a6.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYjFmMjQ1MjhmNWJjZmQ1MSIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc3OTMwMDY0OH0.wkATZ6LsOF_HbbB3ikz4mkG6fQxQ9XEL9X7oO_N2Spc"
+    }
+  ]
+}

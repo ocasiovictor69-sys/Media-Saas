@@ -1,11 +1,19 @@
 {
   "module": 2,
   "title": "THE PRISON TIME MACHINE",
-  "timeline_seconds": 28,
+  "timeline_seconds": 52,
   "fps": 30,
-  "resolution": { "width": 1920, "height": 1080 },
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
   "color_grading": {
-    "palette": ["#0d0d0d", "#2d2d2d", "#4a4a4a", "#8b7355"],
+    "palette": [
+      "#0d0d0d",
+      "#2d2d2d",
+      "#4a4a4a",
+      "#8b7355"
+    ],
     "mood": "surreal_timeless",
     "temperature": "cool_to_warm",
     "saturation": 0.4,
@@ -23,38 +31,153 @@
     "title_color": "#c0b090",
     "caption_color": "#b0b0b0",
     "title_animation": "slideInLeft",
-    "title_position": { "x": "center", "y": 0.25 }
+    "title_position": {
+      "x": "center",
+      "y": 0.25
+    }
   },
   "composition": {
     "style": "cinematic_letterbox",
     "letterbox_height": 90,
     "background_mode": "blurred_video",
     "blur_amount": 15,
-    "focus_zone": { "x": 0.5, "y": 0.45, "radius": 350 },
+    "focus_zone": {
+      "x": 0.5,
+      "y": 0.45,
+      "radius": 350
+    },
     "camera_motion": "slow_dolly_forward"
   },
   "audio_sync": {
     "cue_points": [
-      { "time": 0.0, "beat": "narration_start", "action": "fade_in_title" },
-      { "time": 2.0, "beat": "crazy_1993", "action": "time_lapse_effect" },
-      { "time": 10.0, "beat": "evolution_passing", "action": "horizontal_scroll_panels" },
-      { "time": 16.0, "beat": "obama_mentioned", "action": "flash_white" },
-      { "time": 20.0, "beat": "trump_mentioned", "action": "flash_white" },
-      { "time": 27.0, "beat": "module_end", "action": "fade_to_black" }
+      {
+        "time": 0.0,
+        "beat": "narration_start",
+        "action": "fade_in_title"
+      },
+      {
+        "time": 2.0,
+        "beat": "crazy_1993",
+        "action": "freeze_time_machine"
+      },
+      {
+        "time": 12.0,
+        "beat": "aol_internet_birth",
+        "action": "aol_logo_render"
+      },
+      {
+        "time": 24.0,
+        "beat": "social_web_mobile",
+        "action": "cellular_network_overlay"
+      },
+      {
+        "time": 35.0,
+        "beat": "obama_mentioned",
+        "action": "flash_white_obama"
+      },
+      {
+        "time": 44.0,
+        "beat": "trump_and_release",
+        "action": "flash_white_trump_release"
+      },
+      {
+        "time": 51.0,
+        "beat": "module_end",
+        "action": "fade_to_black"
+      }
     ],
     "music_volume": 0.18,
     "voiceover_volume": 1.0,
     "sound_effects": [
-      { "time": 2.0, "type": "clock_tick_echo", "volume": 0.08 },
-      { "time": 16.0, "type": "camera_flash", "volume": 0.06 }
+      {
+        "time": 2.0,
+        "type": "retro_clock_click",
+        "volume": 0.1
+      },
+      {
+        "time": 12.0,
+        "type": "aol_dialup_modem_tone",
+        "volume": 0.25
+      },
+      {
+        "time": 24.0,
+        "type": "cellular_data_static",
+        "volume": 0.1
+      },
+      {
+        "time": 35.0,
+        "type": "camera_flash_shutter",
+        "volume": 0.12
+      },
+      {
+        "time": 44.0,
+        "type": "heavy_vault_door_opening",
+        "volume": 0.2
+      }
     ]
   },
   "overlays": {
-    "module_badge": { "text": "II", "opacity": 0.3, "position": { "x": 0.02, "y": 0.02 } },
-    "progress_bar": { "height": 3, "color": "#8b7355", "position": "bottom" }
+    "module_badge": {
+      "text": "II",
+      "opacity": 0.3,
+      "position": {
+        "x": 0.02,
+        "y": 0.02
+      }
+    },
+    "progress_bar": {
+      "height": 3,
+      "color": "#8b7355",
+      "position": "bottom"
+    }
   },
+  "timeline_milestones": [
+    {
+      "time": 2.0,
+      "year": "1993",
+      "event": "Victor Enters Prison Time Machine",
+      "visual": "A vintage 1993 digital watch face freezing in time.",
+      "audio_cue": "retro_clock_click"
+    },
+    {
+      "time": 12.0,
+      "year": "1995",
+      "event": "AOL & Birth of the Consumer Internet",
+      "visual": "A classic glowing yellow AOL triangular logo fading onto the screen with retro gridlines.",
+      "audio_cue": "aol_dialup_modem_tone"
+    },
+    {
+      "time": 24.0,
+      "year": "2000s",
+      "event": "Mobile Web & Social Networks Evolution",
+      "visual": "A high-speed cybernetic flow of glowing fiber-optic cable nodes.",
+      "audio_cue": "cellular_data_static"
+    },
+    {
+      "time": 35.0,
+      "year": "2008-2016",
+      "event": "Presidency of Barack Obama",
+      "visual": "Cinematic white flash transition showing a stylized graphic portrait of President Obama speaking.",
+      "audio_cue": "camera_flash_shutter"
+    },
+    {
+      "time": 44.0,
+      "year": "November 2018",
+      "event": "November 2018 Release (Time Machine Stops)",
+      "visual": "A stylized calendar freezing on November 2018 as a heavy cell door slides open, flooding the screen with bright light to mark your historic release.",
+      "audio_cue": "heavy_vault_door_opening"
+    }
+  ],
   "scene_transitions": [
-    { "type": "time_wipe", "duration": 1.0, "easing": "easeOut" },
-    { "type": "crossfade", "duration": 1.2, "easing": "easeInOut" }
+    {
+      "type": "time_wipe",
+      "duration": 1.0,
+      "easing": "easeOut"
+    },
+    {
+      "type": "crossfade",
+      "duration": 1.2,
+      "easing": "easeInOut"
+    }
   ]
 }
